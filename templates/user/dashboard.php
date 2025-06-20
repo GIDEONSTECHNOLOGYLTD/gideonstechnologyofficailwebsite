@@ -36,6 +36,16 @@
                         <a class="nav-link" href="/contact">Contact</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/tickets">
+                            <i class="bi bi-ticket me-2"></i> Support Tickets
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/referrals">
+                            <i class="bi bi-people me-2"></i> My Referrals
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 </ul>
@@ -72,6 +82,46 @@
                 </div>
             </div>
             <div class="col-md-9">
+                <!-- Referral Card -->                
+                <div class="card mb-4 border-left-primary">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <h5 class="font-weight-bold text-primary mb-1">Refer & Earn Rewards</h5>
+                                <p class="mb-2">Share with friends and earn rewards when they sign up or make purchases!</p>
+                                
+                                <?php if(isset($referralCode) && $referralCode): ?>
+                                    <div class="input-group mb-3" style="max-width: 500px;">
+                                        <input type="text" class="form-control" value="<?= $siteUrl ?? 'https://gideonstechnology.com' ?>/refer/<?= $referralCode ?>" id="referralLink" readonly>
+                                        <button class="btn btn-outline-primary" type="button" onclick="copyReferralLink()" id="copyBtn">
+                                            <i class="bi bi-clipboard"></i> Copy
+                                        </button>
+                                    </div>
+                                    <div class="mt-2">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=<?= urlencode($siteUrl ?? 'https://gideonstechnology.com') ?>/refer/<?= $referralCode ?>" target="_blank" class="btn btn-sm me-2" style="background-color: #1877f2; color: white;">
+                                            <i class="bi bi-facebook"></i> Share
+                                        </a>
+                                        <a href="https://twitter.com/intent/tweet?text=<?= urlencode('Check out Gideons Technology for premium tech services and products!') ?>&url=<?= urlencode($siteUrl ?? 'https://gideonstechnology.com') ?>/refer/<?= $referralCode ?>" target="_blank" class="btn btn-sm me-2" style="background-color: #1da1f2; color: white;">
+                                            <i class="bi bi-twitter"></i> Tweet
+                                        </a>
+                                        <a href="https://api.whatsapp.com/send?text=<?= urlencode('Check out Gideons Technology for premium tech services and products! ' . ($siteUrl ?? 'https://gideonstechnology.com') . '/refer/' . $referralCode) ?>" target="_blank" class="btn btn-sm me-2" style="background-color: #25d366; color: white;">
+                                            <i class="bi bi-whatsapp"></i> WhatsApp
+                                        </a>
+                                        <a href="mailto:?subject=<?= urlencode('Check out Gideons Technology') ?>&body=<?= urlencode('I thought you might be interested in Gideons Technology services and products: ' . ($siteUrl ?? 'https://gideonstechnology.com') . '/refer/' . $referralCode) ?>" class="btn btn-sm" style="background-color: #6c757d; color: white;">
+                                            <i class="bi bi-envelope"></i> Email
+                                        </a>
+                                    </div>
+                                <?php else: ?>
+                                    <a href="/referrals" class="btn btn-primary">Get My Referral Link</a>
+                                <?php endif; ?>
+                            </div>
+                            <div class="col-auto d-none d-lg-block">
+                                <i class="bi bi-people-fill text-primary" style="font-size: 3rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Main Content -->
                 <div class="card">
                     <div class="card-header bg-primary text-white">
@@ -150,5 +200,21 @@
 
     <!-- JavaScript Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript for referral link copying -->  
+    <script>
+    function copyReferralLink() {
+        var copyText = document.getElementById("referralLink");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        
+        var copyBtn = document.getElementById("copyBtn");
+        var originalHtml = copyBtn.innerHTML;
+        copyBtn.innerHTML = '<i class="bi bi-check"></i> Copied!';
+        setTimeout(function(){
+            copyBtn.innerHTML = originalHtml;
+        }, 2000);
+    }
+    </script>
 </body>
 </html>
