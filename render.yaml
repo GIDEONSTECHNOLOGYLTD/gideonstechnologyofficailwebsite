@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: gideons-technology
+    env: php
+    buildCommand: composer install --no-interaction --prefer-dist --optimize-autoloader
+    startCommand: vendor/bin/heroku-php-apache2 public/
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false

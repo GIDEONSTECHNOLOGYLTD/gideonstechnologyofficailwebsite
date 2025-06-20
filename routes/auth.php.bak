@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * Authentication Routes
+ * 
+ * This file defines all routes for user authentication (login, register, logout).
+ */
+
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GtechController;
+
+return function (App $app) {
+    // Get container
+    $container = $app->getContainer();
+    
+    // Non-grouped auth routes for direct access
+    $app->get('/login', [$container->get(AuthController::class), 'loginForm'])->setName('login');
+    $app->post('/login', [$container->get(AuthController::class), 'login']);
+    
+    $app->get('/contact', [$container->get(GtechController::class), 'contact'])->setName('contact');
+    
+    // Auth routes - grouped under /auth prefix
+    // Temporarily modified to avoid route conflicts
+    $app->group('/auth', function (RouteCollectorProxy $group) use ($container) {
+        // Using a different route name to avoid conflicts
+        $group->get('/login', [$container->get(AuthController::class), 'loginForm'])->setName('auth.login.form');
+        $group->post('/login', [$container->get(AuthController::class), 'login']);
+        $group->get('/register', [$container->get(AuthController::class), 'registerForm'])->setName('auth.register');
+        $group->post('/register', [$container->get(AuthController::class), 'register']);
+        $group->get('/logout', [$container->get(AuthController::class), 'logout'])->setName('auth.logout');
+    });
+};

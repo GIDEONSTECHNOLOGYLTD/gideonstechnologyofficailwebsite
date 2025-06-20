@@ -1,0 +1,12 @@
+[23-Dec-2023 20:09:36 UTC] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/gideonst/public_html/login/config.php on line 21
+[23-Dec-2023 20:33:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/gideonst/public_html/login/login.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/gideonst/public_html/login/login.php on line 20
+[23-Dec-2023 20:33:53 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bind_param() on bool in /home/gideonst/public_html/login/login.php:20
+Stack trace:
+#0 {main}
+  thrown in /home/gideonst/public_html/login/login.php on line 20
+[30-Dec-2023 07:09:23 UTC] PHP Notice:  Undefined index: token in /home/gideonst/public_html/login/mailverify.php on line 5
+[01-Apr-2024 20:20:50 UTC] PHP Notice:  Undefined index: token in /home/gideonst/public_html/login/mailverify.php on line 5
+[01-Apr-2024 20:22:01 UTC] PHP Notice:  Undefined index: token in /home/gideonst/public_html/login/mailverify.php on line 5

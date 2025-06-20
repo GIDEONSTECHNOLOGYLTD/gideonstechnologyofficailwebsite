@@ -1,0 +1,68 @@
+IMPORTANT WEBSITE INFORMATION
+============================
+
+1. DATABASE ACCESS
+----------------
+Host: localhost
+Database: gideonst_site
+Username: gideonst_site
+Password: Site2025@db
+
+2. ADMINER ACCESS
+----------------
+URL: https://gideonstechnology.com/adminer/adminer.php
+System: MySQL
+Server: localhost
+Username: gideonst_site
+Password: Site2025@db
+
+3. WEBSITE FILES
+----------------
+Main Files:
+- /public_html/index.php (main page)
+- /public_html/css/style.css (styles)
+- /public_html/js/main.js (JavaScript)
+- /public_html/includes/config.php (database config)
+
+4. DATABASE TABLES
+----------------
+- users (for user accounts)
+- services (list of services)
+- orders (customer orders)
+- payments (payment records)
+- settings (site settings)
+
+5. DEFAULT ADMIN LOGIN
+----------------
+Username: admin
+Email: admin@gideonstechnology.com
+Password: admin123
+
+6. FILE PERMISSIONS
+----------------
+Folders: 755
+Files: 644
+PHP Files: 644
+.htaccess: 644
+
+7. IMPORTANT PATHS
+----------------
+Website Root: /public_html
+Admin Panel: /public_html/admin
+Images: /public_html/img
+Database Tool: /public_html/adminer
+
+8. BACKUP INFORMATION
+----------------
+- Database can be backed up through Adminer
+- Files can be backed up through cPanel File Manager
+- Regular backups recommended
+
+9. SECURITY NOTES
+----------------
+- All passwords are hashed
+- SQL injection protection enabled
+- XSS protection enabled
+- CSRF protection enabled
+
+Keep this information secure and don't share it publicly!

@@ -1,0 +1,144 @@
+<?php
+/**
+ * Web Routes
+ * 
+ * This file contains all public-facing web routes including:
+ * - Home, About, Contact pages
+ * - Authentication routes with middleware
+ * - Proper redirection from old routes
+ */
+
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Core\RouteRegistry;
+use App\Controllers\HomeController;
+use App\Controllers\AuthController;
+use App\Controllers\ServicesController;
+use App\Controllers\ContactController;
+use App\Controllers\AboutController;
+use App\Middleware\AuthMiddleware;
+use App\Utilities\Logger;
+
+return function (App $app, ContainerInterface $container) {
+    // Log that we're processing web routes
+    if (class_exists('\\App\\Utilities\\Logger')) {
+        Logger::info("Processing web routes");
+    }
+    
+    // Home page route
+    if (!RouteRegistry::isRegistered('GET', '/')) {
+        RouteRegistry::register('GET', '/');
+        $app->get('/', [HomeController::class, 'index'])->setName('home');
+    }
+    
+    // About page
+    if (!RouteRegistry::isRegistered('GET', '/about')) {
+        RouteRegistry::register('GET', '/about');
+        $app->get('/about', [AboutController::class, 'index'])->setName('about');
+    }
+    
+    // Services page
+    if (!RouteRegistry::isRegistered('GET', '/services')) {
+        RouteRegistry::register('GET', '/services');
+        $app->get('/services', [ServicesController::class, 'index'])->setName('services');
+    }
+    
+    // Contact page
+    if (!RouteRegistry::isRegistered('GET', '/contact')) {
+        RouteRegistry::register('GET', '/contact');
+        $app->get('/contact', [ContactController::class, 'index'])->setName('contact');
+        $app->post('/contact', [ContactController::class, 'submit'])->setName('contact.submit');
+    }
+    
+    // Authentication routes
+    $app->group('/auth', function (RouteCollectorProxy $group) {
+        // Login routes
+        if (!RouteRegistry::isRegistered('GET', '/auth/login')) {
+            RouteRegistry::register('GET', '/auth/login');
+            $group->get('/login', [AuthController::class, 'loginForm'])->setName('auth.login');
+        }
+        
+        if (!RouteRegistry::isRegistered('POST', '/auth/login')) {
+            RouteRegistry::register('POST', '/auth/login');
+            $group->post('/login', [AuthController::class, 'login'])->setName('auth.login.post');
+        }
+        
+        // Registration routes
+        if (!RouteRegistry::isRegistered('GET', '/auth/register')) {
+            RouteRegistry::register('GET', '/auth/register');
+            $group->get('/register', [AuthController::class, 'registerForm'])->setName('auth.register');
+        }
+        
+        if (!RouteRegistry::isRegistered('POST', '/auth/register')) {
+            RouteRegistry::register('POST', '/auth/register');
+            $group->post('/register', [AuthController::class, 'register'])->setName('auth.register.post');
+        }
+        
+        // Password reset routes
+        if (!RouteRegistry::isRegistered('GET', '/auth/forgot-password')) {
+            RouteRegistry::register('GET', '/auth/forgot-password');
+            $group->get('/forgot-password', [AuthController::class, 'forgotPasswordForm'])->setName('auth.forgot');
+        }
+        
+        if (!RouteRegistry::isRegistered('POST', '/auth/forgot-password')) {
+            RouteRegistry::register('POST', '/auth/forgot-password');
+            $group->post('/forgot-password', [AuthController::class, 'forgotPassword'])->setName('auth.forgot.post');
+        }
+        
+        // Logout route
+        if (!RouteRegistry::isRegistered('GET', '/auth/logout')) {
+            RouteRegistry::register('GET', '/auth/logout');
+            $group->get('/logout', [AuthController::class, 'logout'])->setName('auth.logout');
+        }
+    });
+    
+    // User routes - protected by authentication middleware
+    $app->group('/user', function (RouteCollectorProxy $group) {
+        // Profile routes
+        if (!RouteRegistry::isRegistered('GET', '/user/profile')) {
+            RouteRegistry::register('GET', '/user/profile');
+            $group->get('/profile', [UserController::class, 'profile'])->setName('user.profile');
+        }
+        
+        if (!RouteRegistry::isRegistered('POST', '/user/profile')) {
+            RouteRegistry::register('POST', '/user/profile');
+            $group->post('/profile', [UserController::class, 'updateProfile'])->setName('user.profile.update');
+        }
+        
+        // Dashboard route
+        if (!RouteRegistry::isRegistered('GET', '/user/dashboard')) {
+            RouteRegistry::register('GET', '/user/dashboard');
+            $group->get('/dashboard', [UserController::class, 'dashboard'])->setName('user.dashboard');
+        }
+        
+        // Orders routes
+        if (!RouteRegistry::isRegistered('GET', '/user/orders')) {
+            RouteRegistry::register('GET', '/user/orders');
+            $group->get('/orders', [UserController::class, 'orders'])->setName('user.orders');
+        }
+        
+        if (!RouteRegistry::isRegistered('GET', '/user/orders/{id}')) {
+            RouteRegistry::register('GET', '/user/orders/{id}');
+            $group->get('/orders/{id}', [UserController::class, 'viewOrder'])->setName('user.order.view');
+        }
+        
+        // Settings route
+        if (!RouteRegistry::isRegistered('GET', '/user/settings')) {
+            RouteRegistry::register('GET', '/user/settings');
+            $group->get('/settings', [UserController::class, 'settings'])->setName('user.settings');
+        }
+        
+        if (!RouteRegistry::isRegistered('POST', '/user/settings')) {
+            RouteRegistry::register('POST', '/user/settings');
+            $group->post('/settings', [UserController::class, 'updateSettings'])->setName('user.settings.update');
+        }
+    })->add(new AuthMiddleware($container));
+    
+    // Legacy route redirects
+    // Add redirects for any old routes that need to be maintained for backwards compatibility
+    
+    return $app;
+};

@@ -1,0 +1,361 @@
+<?php
+/**
+ * User Account Routes
+ * 
+ * Routes for user authentication, profile management, and dashboard
+ * Uses RouteRegistry to prevent duplicate route registrations
+ */
+
+use App\Controllers\UserController;
+use App\Controllers\AuthController;
+use App\Controllers\ProfileController;
+use App\Controllers\DashboardController;
+use App\Middleware\AuthMiddleware;
+use App\Core\RouteRegistry;
+use App\Core\RouteManager;
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Utilities\Logger;
+
+// We'll let the main routes.php file handle the global flag
+// This ensures consistent loading across the application
+
+return function (App $app, ?ContainerInterface $container = null) {
+    // Log that we're processing user routes
+    if (class_exists('\\App\\Utilities\\Logger')) {
+        Logger::info("Processing user routes");
+    }
+    
+    // Note: User profile routes are now properly registered in the group below
+    // with the UserController. This legacy implementation has been removed.
+    
+    // Register the main user profile route if not already registered
+    if (!RouteRegistry::isRegistered('GET', '/user/profile')) {
+        RouteRegistry::register('GET', '/user/profile');
+        
+        // Define the user profile route
+        $app->get('/user/profile', [UserController::class, 'profile']);
+    }
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-pills .nav-link.active {
+            background-color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Gideon's Technology</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gtech">GTech Platform</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gstore">Store</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> John Doe
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item active" href="/user/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/user/orders">Orders</a></li>
+                            <li><a class="dropdown-item" href="/user/settings">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/auth/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="profile-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center">
+                    <img src="https://via.placeholder.com/150" alt="Profile Picture" class="profile-img">
+                </div>
+                <div class="col-md-9">
+                    <h1>John Doe</h1>
+                    <p class="lead">Premium Member since January 2023</p>
+                    <p><i class="bi bi-envelope me-2"></i>john.doe@example.com</p>
+                    <p><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="list-group">
+                    <a href="/user/profile" class="list-group-item list-group-item-action active">
+                        <i class="bi bi-person me-2"></i>Profile
+                    </a>
+                    <a href="/user/orders" class="list-group-item list-group-item-action">
+                        <i class="bi bi-cart me-2"></i>Orders
+                    </a>
+                    <a href="/user/payments" class="list-group-item list-group-item-action">
+                        <i class="bi bi-credit-card me-2"></i>Payment Methods
+                    </a>
+                    <a href="/user/addresses" class="list-group-item list-group-item-action">
+                        <i class="bi bi-geo-alt me-2"></i>Addresses
+                    </a>
+                    <a href="/user/notifications" class="list-group-item list-group-item-action">
+                        <i class="bi bi-bell me-2"></i>Notifications
+                    </a>
+                    <a href="/user/settings" class="list-group-item list-group-item-action">
+                        <i class="bi bi-gear me-2"></i>Settings
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Personal Information</h5>
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">First Name</p>
+                                <p class="mb-0">John</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Last Name</p>
+                                <p class="mb-0">Doe</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Email</p>
+                                <p class="mb-0">john.doe@example.com</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Phone</p>
+                                <p class="mb-0">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Date of Birth</p>
+                                <p class="mb-0">January 15, 1985</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Gender</p>
+                                <p class="mb-0">Male</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Account Information</h5>
+                        <button class="btn btn-sm btn-primary">Edit</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Username</p>
+                                <p class="mb-0">johndoe123</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Member Since</p>
+                                <p class="mb-0">January 10, 2023</p>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Membership Level</p>
+                                <p class="mb-0"><span class="badge bg-primary">Premium</span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Account Status</p>
+                                <p class="mb-0"><span class="badge bg-success">Active</span></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Last Login</p>
+                                <p class="mb-0">Today at 10:30 AM</p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-muted mb-1">Password</p>
+                                <p class="mb-0">********** <a href="#" class="ms-2 small">Change</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Recent Activity</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Purchased GTech Service Plan</h6>
+                                    <small>3 days ago</small>
+                                </div>
+                                <p class="mb-1">You purchased a Premium GTech Service Plan for $99.99</p>
+                                <small class="text-muted">Order #GT-2023-0456</small>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Updated Profile Information</h6>
+                                    <small>1 week ago</small>
+                                </div>
+                                <p class="mb-1">You updated your profile information</p>
+                                <small class="text-muted">Changed phone number and address</small>
+                            </div>
+                            <div class="list-group-item">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">Ordered Laptop Repair Service</h6>
+                                    <small>2 weeks ago</small>
+                                </div>
+                                <p class="mb-1">You scheduled a laptop repair service</p>
+                                <small class="text-muted">Service #SVC-2023-1234</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Gideon's Technology</h5>
+                    <p>Providing cutting-edge technology solutions since 2020.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-white">Home</a></li>
+                        <li><a href="/services" class="text-white">Services</a></li>
+                        <li><a href="/gtech" class="text-white">GTech Platform</a></li>
+                        <li><a href="/gstore" class="text-white">Store</a></li>
+                        <li><a href="/about" class="text-white">About</a></li>
+                        <li><a href="/contact" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <address>
+                        123 Tech Street<br>
+                        San Francisco, CA 94107<br>
+                        <a href="mailto:info@gideonstech.com" class="text-white">info@gideonstech.com</a><br>
+                        <a href="tel:+1234567890" class="text-white">(123) 456-7890</a>
+                    </address>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Gideon's Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+HTML;
+
+            $response->getBody()->write($html);
+            return $response->withHeader('Content-Type', 'text/html');
+        });
+    }
+    
+    // Register user sub-routes
+    $app->group('/user', function (RouteCollectorProxy $group) use ($container) {
+        // Dashboard
+        if (!RouteRegistry::isRegistered('GET', '/user/dashboard')) {
+            RouteRegistry::register('GET', '/user/dashboard');
+            $group->get('/dashboard', [UserController::class, 'dashboard']);
+        }
+        
+        // Profile
+        if (!RouteRegistry::isRegistered('GET', '/user/profile')) {
+            RouteRegistry::register('GET', '/user/profile');
+            $group->get('/profile', [UserController::class, 'profile']);
+        }
+        
+        // Update Profile
+        if (!RouteRegistry::isRegistered('POST', '/user/profile/update')) {
+            RouteRegistry::register('POST', '/user/profile/update');
+            $group->post('/profile/update', [UserController::class, 'updateProfile']);
+        }
+        
+        // Settings
+        if (!RouteRegistry::isRegistered('GET', '/user/settings')) {
+            RouteRegistry::register('GET', '/user/settings');
+            $group->get('/settings', [UserController::class, 'settings']);
+        }
+        
+        // Update Settings
+        if (!RouteRegistry::isRegistered('POST', '/user/settings/update')) {
+            RouteRegistry::register('POST', '/user/settings/update');
+            $group->post('/settings/update', [UserController::class, 'updateSettings']);
+        }
+        
+        // Orders
+        if (!RouteRegistry::isRegistered('GET', '/user/orders')) {
+            RouteRegistry::register('GET', '/user/orders');
+            $group->get('/orders', function (Request $request, Response $response) {
+                $response->getBody()->write("<h1>User Orders</h1>");
+                return $response;
+            });
+        }
+        
+        // Settings
+        if (!RouteRegistry::isRegistered('GET', '/user/settings')) {
+            RouteRegistry::register('GET', '/user/settings');
+            $group->get('/settings', function (Request $request, Response $response) {
+                $response->getBody()->write("<h1>User Settings</h1>");
+                return $response;
+            });
+        }
+        
+        // Notifications
+        if (!RouteRegistry::isRegistered('GET', '/user/notifications')) {
+            RouteRegistry::register('GET', '/user/notifications');
+            $group->get('/notifications', function (Request $request, Response $response) {
+                $response->getBody()->write("<h1>User Notifications</h1>");
+                return $response;
+            });
+        }
+    });
+    
+    return $app;
+};

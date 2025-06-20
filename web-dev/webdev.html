@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title> Gideons Technology | Web Design/ Dev</title>
+
+<link rel="icon" href="../assets/icon.png" sizes="32x32" type="assets/png">
+
+<link rel="stylesheet" href="../assets/css/animate.css">
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/flaticon.css">
+<link rel="stylesheet" href="../assets/css/slick.css">
+<link rel="stylesheet" href="../assets/css/line-awesome.min.css">
+<link rel="stylesheet" href="../assets/css/nice-select.css">
+<link rel="stylesheet" href="webdev.css">
+<style>
+  .navbar-toggler {
+    z-index: 1001; /* Ensure the toggler button is above other elements */
+    position: relative; /* Ensure it is positioned correctly */
+  }
+  .navbar {
+    background-color: #333333; /* Set the background color to a dark color */
+  }
+  .navbar-nav .nav-link {
+    color: #ffffff; /* Set the text color to white for better visibility */
+  }
+  .navbar-nav .nav-link:hover {
+    color: #007bff; /* Set the hover color to blue */
+  }
+  .navbar-nav .menu-item-has-children .sub-menu {
+    background-color: #333333; /* Ensure the submenu has a dark background */
+  }
+  .navbar-nav .menu-item-has-children .sub-menu a {
+    color: #ffffff; /* Set the submenu text color to white */
+  }
+  .navbar-nav .menu-item-has-children .sub-menu a:hover {
+    color: #007bff; /* Set the submenu hover color to blue */
+  }
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="loader_bars"></div>
+      <span></span>
+    </div>
+  </div>
+</div>
+
+<header class="header-style-01">
+  <nav class="navbar navbar-area white nav-absolute navbar-expand-lg navbar-border">
+    <div class="container container-two nav-container">
+      <div class="responsive-mobile-menu">
+        <div class="logo-wrapper">
+          <a href="../index.php" class="logo">
+            <img src="../assets/img/logo-01.png" alt="">
+          </a>
+        </div>
+        <a href="javascript:void(0)" class="click_show_icon">
+          <i class="las la-ellipsis-v"></i>
+        </a>
+        <button class="navbar-toggler active" type="button" data-toggle="collapse" data-target="#bizcoxx_main_menu" aria-expanded="true" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="bizcoxx_main_menu">
+        <ul class="navbar-nav">
+          <li><a href="../index.php">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="menu-item-has-children">
+            <a href="javascript:void(0)">Services</a>
+            <ul class="sub-menu">
+              <li><a href="../gstore/store.html">Gtech Store</a></li>
+              <li><a href="../exchangeplatform/exchange.html">Crypto Exchange Platform</a></li>
+              <li><a href="../fintech/fintech.html">Gideons Fintech Solution</a></li>
+              <li><a href="../web-dev/webdev.html">Web Design/ Development</a></li>
+              <li><a href="../videographics/videographics.html">Video Editing / Graphics Design</a></li>
+              <li><a href="../repair/repair.html">Hardware and Software Repair</a></li>
+              <li><a href="../generaltech/general.html">General Tech Related Services</a></li>
+            </ul>
+          </li>
+          <li><a href="../faq.html">FAQ</a></li>
+          <li class="menu-item-has-children">
+            <a href="../blog.html">Blog</a>
+            <ul class="sub-menu">
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../blog_details.html">The Future of Tech</a></li>
+              <li><a href="../cryptoblog.html">Demystifying the Blockchain</a></li>
+              <li><a href="../iotblog.html">The Internet of Things (IoT)</a></li>
+              <li><a href="../greenblog.html">Green Tech</a></li>
+            </ul>
+          </li>
+          <li><a href="../contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="nav-right-content">
+        <div class="info-bar-item">
+          <div class="notification-icon icon">
+            <a class="single-icon" href="javascript:void(0)"> <i class="las la-bell"></i> </a>
+            <span class="notification-number"> 5 </span>
+            <div class="notification-list-wrapper">
+              <h6 class="notification-title"> Notifications </h6>
+              <ul class="notification-list">
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> Welcome To Gideons Technology </a>
+                      <span class="list-sub"> 4 hours ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> Our blog is now available </a>
+                      <span class="list-sub"> 8 hours ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> The fintech app will soon be launched </a>
+                      <span class="list-sub"> 1 day ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> The Gtech Store is now available </a>
+                      <span class="list-sub"> 3 day ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> If you have any question please visit our faq page and contact page </a>
+                      <span class="list-sub"> 7 day ago </span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <a href="../notification.html" class="all-notification"> See All Notification </a>
+            </div>
+          </div>
+        </div>
+        <div class="info-bar-item-two">
+          <a href="../login.php" class="login-button">Login</a>
+          <a href="../register.html" class="register-button">/ Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="overlays"></div>
+
+<div class="banner-area home-one-banner bg-image" style="background-image:url(../assets/img/services.jpg)">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10">
+        <div class="banner-contents">
+          <h2 class="banner-title"> One-stop solution for your <span class="title-span"> Agency </span> </h2>
+          <span class="title-top">Website Design/ Development | Mobile App Dev</span>
+          <div class="banner-bottom-content">
+            <form action="https://formsubmit.co/ceo@gideonstechnology.com" method="POST" class="banner-search-form">
+              <div class="banner-address-select">
+                <select id="country" name="country" required>
+                  <!-- ...existing country options... -->
+                </select>
+              </div>
+              <div class="single-input">
+                <input class="form--control" type="email" placeholder="Subscribe to our newsletter" name="Email">
+                <div class="icon-search">
+                  <i class="las la-submit"></i>
+                </div>
+                <button type="submit"> <i class="fa fa-hand-peace-o"></i> </button>
+              </div>
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_next" value="https://gideonstechnology.com">
+            </form>
+            <div class="banner-keywords">
+              <span class="keyword-title"> Services: </span>
+              <ul class="keyword-tag">
+                <li><a href="web-dev/webdev.html"> Web Development </a></li>
+                <li><a href="../videographics/videographics.html"> Graphics Design</a></li>
+                <li><a href="../videographics/videographics.html"> Video Editing </a></li>
+                <li><a href="../repair/repair.html"> Computer Repair </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="category-area section-bg-1 padding-top-100 padding-bottom-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> Browse <span class="title-color"> Categories </span> </h2>
+          <span class="section-para"> At Gideons Technology, we understand that your web browsing experience is the gateway to the digital world. As technology enthusiasts, we're committed to enhancing your online journey. Our browser category is designed to keep you ahead in the digital realm. </span>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-50">
+      <div class="col-lg-12">
+        <div class="category-slider dot-style-one">
+          <div class="single-category-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="webdev.html"> Web Application Development </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a></span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInDown" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="webdev.html"> Mobile Application Development </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="../repair/repairs.html">Custom Software Solutions </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInDown" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="webdev.html"> Database Dev and maintenance</a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="../videographics/videographics.html"> Video Editing/ Animation </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="../repair/repair.html"> Computer Hardware Repair </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="../repair/repair.html"> Computer Hardware Upgrade </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+          <div class="single-category-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-category">
+              <div class="icon"></div>
+              <div class="category-contents">
+                <h4 class="category-title"> <a href="../repair/repair.html"> Computer Software Repair </a> </h4>
+                <span class="category-para"> <a href="#"> See all</a> </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-area padding-top-100 padding-bottom-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> <span class="title-color"> Here is our </span> Process </h2>
+          <div class="overview-single style-03">
+            <ul class="overview-benefits margin-top-30">
+              <li class="list">
+                After you click on the get started button you will be redirected to our whatsapp/ Email contact, where a customer support agent will attend to you.
+              </li>
+              <li class="list">
+                we will set up a virtual meeting/ Call to understand your business and your marketing goals.
+              </li>
+              <li class="list">
+                Our billing/ Payment Department will send you an invoice to you based on your project complexity and deliverables. (Our Pricing is very reasonable)
+              </li>
+              <li class="list">
+                After the first initial payment is received, we will commence the development of your business website/ App
+              </li>
+              <li class="list">
+                In about 2 weeks, we will invite you for a demo of your new website and also take input and change suggestions from you.
+              </li>
+              <li class="list">
+                Your new website will be ready for launch as soon as we test for errors and bugs. (we like to take extra time to ensure that everything is perfect)
+              </li>
+              <li class="list">
+                You will be required to make full payment before we hand over complete ownership of all website assets and important login details
+              </li>
+            </ul>
+            <div class="btn-wrapper mt-4">
+              <a href="formtocollect.html" class="cmn-btn btn-appoinment btn-outline-1">Get started </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-area padding-top-100 padding-bottom-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> <span class="title-color"> Website </span> Templates </h2>
+          <span class="section-para"> Gideons Technology offers an array of website templates that combine aesthetics and functionality for a seamless online presence. </span>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-50">
+      <div class="col-lg-12">
+        <div class="services-slider dot-style-one">
+          <div class="single-services-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-service">
+              <a href="formfortemplate.html" class="service-thumb">
+                <img src="../assets/img/ecommerce.jfif" alt="E-Commerce Website image" height="180px">
+                <div class="award-icons">
+                  <i class="las la-award"></i>
+                </div>
+              </a>
+              <div class="services-contents">
+                <br>
+                <h4 class="common-title-two"> <a href="formfortemplate.html">E-Commerce Website </a> </h4>
+                <p class="common-para"> We specialize in crafting custom e-commerce websites that drive sales and provide an exceptional shopping experience. Trust us to turn your online store vision into a reality. </p>
+                <div class="service-price mt-3">
+                  <span class="starting"> Starting at </span>
+                  <span class="prices color-3"> $200.00 </span>
+                </div>
+                <div class="btn-wrapper mt-4">
+                  <a href="formfortemplate.html" class="cmn-btn btn-appoinment btn-outline-1"> Buy Now </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="single-services-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-service">
+              <a href="formfortemplate.html" class="service-thumb">
+                <img src="../assets/img/landing.png" alt="Landing Page Website image" height="180px">
+                <div class="award-icons">
+                  <i class="las la-award"></i>
+                </div>
+              </a>
+              <div class="services-contents">
+                <br>
+                <h4 class="common-title-two"> <a href="formfortemplate.html"> Landing Page </a> </h4>
+                <p class="common-para"> We're experts at crafting captivating landing page websites that convert visitors into customers. 
+                  Elevate your brand and boost your conversions with our tailored landing page solutions. </p>
+                <div class="service-price mt-3">
+                  <span class="starting"> Starting at </span>
+                  <span class="prices color-3"> $100.00 </span>
+                </div>
+                <div class="btn-wrapper mt-4">
+                  <a href="formfortemplate.html" class="cmn-btn btn-appoinment btn-outline-1"> Buy Now </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="single-services-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-service">
+              <a href="formfortemplate.html" class="service-thumb">
+                <img src="../assets/img/schoolmanagement.jfif" alt="School management website image" height="180px">
+                <div class="award-icons">
+                  <i class="las la-award"></i>
+                </div>
+              </a>
+              <div class="services-contents">
+                <br>
+                <h4 class="common-title-two"> <a href="formfortemplate.html"> School Management Website </a> </h4>
+                <p class="common-para"> Our company specializes in crafting school management websites, optimizing administrative tasks, fostering communication, and elevating educational efficiency. </p>
+                <div class="service-price mt-3">
+                  <span class="starting"> Starting at </span>
+                  <span class="prices color-3"> $200.00 </span>
+                </div>
+                <div class="btn-wrapper mt-4">
+                  <a href="formfortemplate.html" class="cmn-btn btn-appoinment btn-outline-1"> Buy Now </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="single-services-item wow fadeInDown" data-wow-delay=".2s">
+            <div class="single-service">
+              <a href="formfortemplate.html" class="service-thumb">
+                <img src="../assets/img/agricultural.jfif" alt="Agricultural website image" height="180px">
+                <div class="award-icons">
+                  <i class="las la-award"></i>
+                </div>
+              </a>
+              <div class="services-contents">
+                <br>
+                <h4 class="common-title-two"> <a href="formfortemplate.html">Agricultural Business Website </a> </h4>
+                <p class="common-para"> We're experts in creating agricultural websites that empower farmers and agribusinesses with valuable resources, 
+                  information, and tools. </p>
+                <div class="service-price mt-3">
+                  <span class="starting"> Starting at </span>
+                  <span class="prices color-3"> $120.00 </span>
+                </div>
+                <div class="btn-wrapper mt-4">
+                  <a href="formfortemplate.html" class="cmn-btn btn-appoinment btn-outline-1"> Buy Now </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="services-area padding-top-100 padding-bottom-100 section-bg-1">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> <span class="title-color"> Our </span> Services </h2>
+          <span class="section-para">  Gideons Technology provides cutting-edge tech solutions that empower your digital journey.  </span>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-xl-4 col-md-6 margin-top-30">
+        <div class="single-service service-two wow fadeInUp" data-wow-delay=".2s">
+          <a href="web-dev/webdev.html" class="service-thumb">
+            <img src="../assets/img/webdev.jpg" alt="">
+          </a>
+          <div class="services-contents">
+            <h4 class="common-title-two"> <a href="formfortemplate.html"> Web Design/ Development </a> </h4>
+            <div class="service-price style-02">
+              <span class="starting"> Starting at </span>
+              <span class="prices color-3"> $100.00 </span>
+            </div>
+            <div class="btn-wrapper">
+              <a href="formtocollect.html" class="cmn-btn btn-bg-1 btn-medium"> Explore </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 margin-top-30">
+        <div class="single-service service-two wow fadeInDown" data-wow-delay=".2s">
+          <a href="videographics/videographics.html" class="service-thumb">
+            <img src="../assets/img/videoediting.jpg" alt="">
+          </a>
+          <div class="services-contents">
+            <h4 class="common-title-two"> <a href="formfortemplate.html"> Video Editing and Animation </a> </h4>
+            <div class="service-price style-02">
+              <span class="starting"> Starting at </span>
+              <span class="prices color-3"> $30.00 </span>
+            </div>
+            <div class="btn-wrapper">
+              <a href="../videographics/videographics.htmll" class="cmn-btn btn-bg-1 btn-medium"> Explore </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 margin-top-30">
+        <div class="single-service service-two wow fadeInUp" data-wow-delay=".2s">
+          <a href="repair/repair.html" class="service-thumb">
+            <img src="../assets/img/repairs.png" alt="" height="210px">
+          </a>
+          <div class="services-contents">
+            <h4 class="common-title-two"> <a href="formfortemplate.html"> Hardware and Software Repair </a> </h4>
+            <div class="service-price style-02">
+              <span class="starting"> Starting at </span>
+              <span class="prices color-3"> $20.00 </span>
+            </div>
+            <div class="btn-wrapper">
+              <a href="../repair/repair.html" class="cmn-btn btn-bg-1 btn-medium"> Explore </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 margin-top-30">
+        <div class="single-service service-two wow fadeInDown" data-wow-delay=".2s">
+          <a href="gstore/store.html" class="service-thumb">
+            <img src="../assets/img/kar.jpg" alt="">
+          </a>
+          <div class="services-contents">
+            <h4 class="common-title-two"> <a href="formfortemplate.html"> Sales Of Laptops & Gadgets </a> </h4>
+            <div class="service-price style-02">
+              <span class="starting"> Starting at </span>
+              <span class="prices color-3"> $10.00 </span>
+            </div>
+            <div class="btn-wrapper">
+              <a href="../gstore/store.html" class="cmn-btn btn-bg-1 btn-medium"> Explore </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 margin-top-30">
+        <div class="single-service service-two wow fadeInUp" data-wow-delay=".2s">
+          <a href="fintech/fintech.html" class="service-thumb">
+            <img src="../assets/img/fintech.jpg" alt="" height="230px">
+          </a>
+          <div class="services-contents">
+            <h4 class="common-title-two"> <a href="formfortemplate.html"> Gideons Fintech Solutions </a> </h4>
+            <div class="service-price style-02">
+              <span class="prices color-3"> Gtech Fintech </span>
+            </div>
+            <div class="btn-wrapper">
+              <a href="../fintech/fintech.html" class="cmn-btn btn-bg-1 btn-medium"> Explore </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-6 margin-top-30">
+        <div class="single-service service-two wow fadeInDown" data-wow-delay=".2s">
+          <a href="generaltech/general.html" class="service-thumb">
+            <img src="../assets/img/services.jpg" alt="">
+          </a>
+          <div class="services-contents">
+            <h4 class="common-title-two"> <a href="../formfortemplate.html"> General Tech Related Services </a> </h4>
+            <div class="service-price style-02">
+              <span class="starting"> Starting at </span>
+              <span class="prices color-3"> $30.00 </span>
+            </div>
+            <div class="btn-wrapper">
+              <a href="../generaltech/general.html" class="cmn-btn btn-bg-1 btn-medium"> Explore </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="margketplace-area padding-top-100 padding-bottom-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> Why choose <span class="title-color"> Gideons Technology? </span> </h2>
+          <span class="section-para">  Our web service is designed to make your life easier. </span>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-20">
+      <div class="col-lg-4 col-md-6 margin-top-30 marketplace-child">
+        <div class="single-marketplace wow fadeInUp" data-wow-delay=".2s">
+          <div class="icon">
+            <i class="las la-tools"></i>
+          </div>
+          <div class="marketplace-contents">
+            <h4 class="common-title-two"> <a href="javascript:void(0)"> Service Commitment </a> </h4>
+            <p class="common-para"> Our service commitment is unwavering, dedicated to providing you with the highest level of care and satisfaction in every interaction. </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 margin-top-30 marketplace-child">
+        <div class="single-marketplace wow fadeInDown" data-wow-delay=".2s">
+          <div class="icon">
+            <i class="las la-users-cog"></i>
+          </div>
+          <div class="marketplace-contents">
+            <h4 class="common-title-two"> <a href="javascript:void(0)"> Super Experience </a> </h4>
+            <p class="common-para"> Get ready for a super experience that will exceed your expectations and leave you with unforgettable memories. </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 margin-top-30 marketplace-child">
+        <div class="single-marketplace wow fadeInUp" data-wow-delay=".2s">
+          <div class="icon">
+            <i class="las la-shield-alt"></i>
+          </div>
+          <div class="marketplace-contents">
+            <h4 class="common-title-two"> <a href="javascript:void(0)"> User Data Secure </a> </h4>
+            <p class="common-para"> Rest assured, we take the security of your user data seriously, employing robust measures to ensure it remains safe and protected. </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 margin-top-30 marketplace-child">
+        <div class="single-marketplace wow fadeInDown" data-wow-delay=".2s">
+          <div class="icon">
+            <i class="las la-stopwatch"></i>
+          </div>
+          <div class="marketplace-contents">
+            <h4 class="common-title-two"> <a href="javascript:void(0)"> Fast Service </a> </h4>
+            <p class="common-para"> Experience the convenience of fast service that caters to your needs swiftly and efficiently. </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 margin-top-30 marketplace-child">
+        <div class="single-marketplace wow fadeInUp" data-wow-delay=".2s">
+          <div class="icon">
+            <i class="las la-file-invoice-dollar"></i>
+          </div>
+          <div class="marketplace-contents">
+            <h4 class="common-title-two"> <a href="javascript:void(0)"> Secure Payment </a> </h4>
+            <p class="common-para"> Your peace of mind is our priority; our secure payment system ensures that your transactions are protected from start to finish. </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-6 margin-top-30 marketplace-child">
+        <div class="single-marketplace wow fadeInDown" data-wow-delay=".2s">
+          <div class="icon">
+            <i class="las la-headset"></i>
+          </div>
+          <div class="marketplace-contents">
+            <h4 class="common-title-two"> <a href="javascript:void(0)"> Dedicated Support </a> </h4>
+            <p class="common-para"> Our dedicated support team is here around the clock to assist you with any questions or issues, providing expert guidance and solutions whenever you need it. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seller-area padding-top-70 padding-bottom-100">
+  <div class="container">
+    <div class="row flex-column-reverse flex-lg-row align-items-center">
+      <div class="col-lg-6 margin-top-30">
+        <div class="seller-wrapper">
+          <div class="section-title text-left">
+            <h2 class="title"> Becoma an  <span class="title-color"> Employee </span> </h2>
+            <span class="section-para"> Are you ready to embark on a rewarding career journey? Joining our team means becoming a vital part of a dynamic and innovative workplace. If you're looking for more than just a job and crave opportunities for personal and career growth, we invite you to explore our current openings and take the first step toward becoming a valued member of our team. Your future with us is filled with possibilities and promise.</span>
+          </div>
+          <div class="seller-contents">
+            <ul class="seller-list">
+              <li class="list">
+                <span class="span-list"> We're committed to helping you reach your full potential. Whether through training, mentorship, or opportunities for advancement, we invest in your growth. </span>
+              </li>
+              <li class="list">
+                <span class="span-list"> Your contributions matter here. We believe in the power of every individual to make a difference, and we empower our employees to do just that. </span>
+              </li>
+            </ul>
+            <div class="btn-wrapper">
+              <a href="../register_step_form.html" class="cmn-btn btn-bg-1"> Become an Employee</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 margin-top-30">
+        <img src="../assets/img/seller/seller.jpg" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog-area padding-top-100 padding-bottom-100 section-bg-1">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> Recent <span class="title-color"> Blog & Articles </span> </h2>
+          <span class="section-para"> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. </span>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-50">
+      <div class="col-lg-12">
+        <div class="services-slider dot-style-one dot-02">
+          <div class="single-blog-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-blog">
+              <a href="../blog_details.html" class="blog-thumb">
+                <img src="../assets/img/blog/tech.jpg" alt="">
+              </a>
+              <div class="blog-contents">
+                <ul class="tags">
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-tag"></i> Technology </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-clock"></i> 14 Oct 2023 </a>
+                  </li>
+                </ul>
+                <h4 class="common-title-two"> <a href="../blog_details.html"> The Future of Tech: Innovations That Will Shape Tomorrow </a> </h4>
+                <p class="common-para"> In today's rapidly evolving digital landscape, staying ahead in the tech industry is both a challenge and an 
+                  opportunity. As a tech company at the forefront of innovation, we're excited to share our insights into the technologies and trends that will shape the future. </p>
+              </div>
+            </div>
+          </div>
+          <div class="single-blog-item wow fadeInDown" data-wow-delay=".2s">
+            <div class="single-blog">
+              <a href="../cryptoblog.html" class="blog-thumb">
+                <img src="../assets/img/blog/blockchain.jpg" alt="">
+              </a>
+              <div class="blog-contents">
+                <ul class="tags">
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-tag"></i> Crypto-Currency </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-clock"></i> 5 Dec 2023 </a>
+                  </li>
+                </ul>
+                <h4 class="common-title-two"> <a href="../cryptoblog.html"> Demystifying the Blockchain: How It's Revolutionizing Tech and Beyond </a> </h4>
+                <p class="common-para"> The term "blockchain" has become a buzzword in recent years, and for a good reason. It's a groundbreaking technology that has
+                  the potential to disrupt industries far beyond the world of cryptocurrencies. In this blog post, we'll demystify blockchain, explore its core principles,
+                  and delve into its transformative impact on technology and various sectors. </p>
+              </div>
+            </div>
+          </div>
+          <div class="single-blog-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-blog">
+              <a href="../iotblog.html" class="blog-thumb">
+                <img src="../assets/img/blog/iot.jpg" alt="">
+              </a>
+              <div class="blog-contents">
+                <ul class="tags">
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-tag"></i> Technology </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-clock"></i> 18 Sep 2023 </a>
+                  </li>
+                </ul>
+                <h4 class="common-title-two"> <a href="../iotblog.html"> The Internet of Things (IoT): Connecting Our World, One Device at a Time </a> </h4>
+                <p class="common-para"> In an era where connectivity reigns supreme, the Internet of Things (IoT) is emerging as a technological marvel that is shaping the way 
+                  we live, work, and interact with our environment. This blog post explores the fascinating world of IoT, how it works, and its profound impact on our daily lives. </p>
+              </div>
+            </div>
+          </div>
+          <div class="single-blog-item wow fadeInDown" data-wow-delay=".2s">
+            <div class="single-blog">
+              <a href="greenblog.html" class="blog-thumb">
+                <img src="../assets/img/blog/greent.jpg" alt="">
+              </a>
+              <div class="blog-contents">
+                <ul class="tags">
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-tag"></i>Technology </a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0)"> <i class="las la-clock"></i> 24 Dec 2023 </a>
+                  </li>
+                </ul>
+                <h4 class="common-title-two"> <a href="greenblog.html"> Green Tech: Sustainable Innovations Shaping the Future </a> </h4>
+                <p class="common-para"> In a world facing increasing environmental challenges, the pursuit of sustainable solutions has never been more critical. Enter the realm of Green Tech, a burgeoning field that combines technology, innovation, and environmental consciousness to create a brighter, more sustainable future for our planet. In this blog, we'll explore the fascinating world of Green Tech and the groundbreaking innovations that are shaping our future while preserving the Earth.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials-area padding-top-100 padding-bottom-100 section-bg-1">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-10">
+        <div class="section-title">
+          <h2 class="title"> What Our <span class="title-color"> Clients Say </span> </h2>
+          <span class="section-para"> Hear from our satisfied clients who have experienced our exceptional services. </span>
+        </div>
+      </div>
+    </div>
+    <div class="row margin-top-50">
+      <div class="col-lg-12">
+        <div class="testimonials-slider dot-style-one">
+          <div class="single-testimonial-item wow fadeInUp" data-wow-delay=".2s">
+            <div class="single-testimonial">
+              <div class="testimonial-thumb">
+                <img src="../assets/img/client1.jpg" alt="Client Image">
+              </div>
+              <div class="testimonial-contents">
+                <h4 class="client-name"> John Doe </h4>
+                <p class="client-feedback"> Gideons Technology transformed our online presence with a stunning website. Their professionalism and expertise are unmatched. </p>
+              </div>
+            </div>
+          </div>
+          <div class="single-testimonial-item wow fadeInDown" data-wow-delay=".2s">
+            <div class="single-testimonial">
+              <div class="testimonial-thumb">
+                <img src="../assets/img/client2.jpg" alt="Client Image">
+              </div>
+              <div class="testimonial-contents">
+                <h4 class="client-name"> Jane Smith </h4>
+                <p class="client-feedback"> The team at Gideons Technology delivered a top-notch mobile app for our business. Highly recommend their services! </p>
+              </div>
+            </div>
+          </div>
+          <!-- Add more testimonials as needed -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer-area">
+  <div class="footer-top padding-top-100 padding-bottom-70">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer-widget widget ">
+            <div class="about_us_widget">
+              <a href="../index.php" class="footer-logo"> <img src="../assets/img/logo-01.png" alt="footer logo"></a>
+            </div>
+            <div class="footer-inner">
+              <p class="footer-para">Unleash the Future of Technology: Explore Our Latest Innovations</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer-widget widget">
+            <h6 class="widget-title">Contact Info</h6>
+            <div class="footer-inner">
+              <ul class="footer-link-address">
+                <li class="list"><span class="address"> <i class="las la-map-marker-alt"></i> Kumasi, Ashanti Region, Ghana </span></li>
+                <li class="list"> <span class="address"> <a href="tel:+233-20-285-0251"> <i class="las la-mobile-alt"></i> +233-20-285-0251</a> </span></li>
+                <li class="list"> <span class="address"> <a href="mailto:ceo@gideonstechnology.com"> <i class="las la-envelope"></i> <span class="__cf_email__">ceo@gideonstechnology</span></a> </span></li>
+              </ul>
+              <div class="footer-socials">
+                <ul class="footer-social-list">
+                  <li class="lists">
+                    <a class="facebook" href="https://m.facebook.com/profile.php?id=100004200583235"> <i class="lab la-facebook-f"></i> </a>
+                  </li>
+                  <li class="lists">
+                    <a class="twitter" href="https://x.com/gideons_tech?s=21"> <i class="lab la-twitter"></i> </a>
+                  </li>
+                  <li class="lists">
+                    <a class="instagram" href="https://instagram.com/ceo_gtech?igshid=MzR1ODBiNWFIZA=="> <i class="lab la-instagram"></i> </a>
+                  </li>
+                  <li class="lists">
+                    <a class="whatsapp" href="https://wa.me/qr/TRTMJI6CL7AJG1"> <i class="lab la-whatsapp"></i> </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer-widget widget">
+            <h4 class="widget-title">Recent News</h4>
+            <div class="footer-inner">
+              <div class="footer-recent-single">
+                <div class="footer-recent-flex">
+                  <a href="../cryptoblog.html" class="recents-thumbs">
+                    <img src="../assets/img/blog/blockchain.jpg" alt="">
+                  </a>
+                  <div class="footer-recent-text">
+                    <a href="../cryptoblog.html" class="footer-recent-para"> Demystifying the Blockchain: How It's Revolutionizing Tech and Beyond </a>
+                  </div>
+                </div>
+              </div>
+              <div class="footer-recent-single">
+                <div class="footer-recent-flex">
+                  <a href="../iotblog.html" class="recents-thumbs">
+                    <img src="../assets/img/blog/iot.jpg" alt="">
+                  </a>
+                  <div class="footer-recent-text">
+                    <a href="../iotblog.html" class="footer-recent-para"> The Internet of Things (IoT): Connecting Our World, One Device at a Time </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer-widget widget">
+            <h4 class="widget-title">Subscribe Newsletter</h4>
+            <div class="footer-inner">
+              <p class="subscribe-para"> Get the latest creative news from Gideons Technology </p>
+              <div class="subscribe-form">
+                <form class="widget-form-single" action="https://formsubmit.co/ceo@gideonstechnology.com" method="POST">
+                  <input type="hidden" name="_gotcha" style="display:none !important">
+                  <input class="form--control" type="text" name="email" placeholder="Enter Email Address">
+                  <button type="submit" class="btn-subscribe"> <i class="las la-paper-plane"></i> </button>
+                  <input type="hidden" name="_captcha" value="false">
+                  <input type="hidden" name="_next" value="https://gideonstechnology.com">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <div class="footer-widget widget">
+            <h6 class="widget-title">Follow Us</h6>
+            <div class="footer-inner">
+              <ul class="footer-social-list">
+                <li class="lists">
+                  <a class="facebook" href="https://m.facebook.com/profile.php?id=100004200583235"> <i class="lab la-facebook-f"></i> </a>
+                </li>
+                <li class="lists">
+                  <a class="twitter" href="https://x.com/gideons_tech?s=21"> <i class="lab la-twitter"></i> </a>
+                </li>
+                <li class="lists">
+                  <a class="instagram" href="https://instagram.com/ceo_gtech?igshid=MzR1ODBiNWFIZA=="> <i class="lab la-instagram"></i> </a>
+                </li>
+                <li class="lists">
+                  <a class="linkedin" href="https://linkedin.com/in/gideons-tech"> <i class="lab la-linkedin-in"></i> </a>
+                </li>
+                <li class="lists">
+                  <a class="youtube" href="https://youtube.com/channel/UCgtech"> <i class="lab la-youtube"></i> </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="copyright-area copyright-border">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-4 col-md-6">
+          <ul class="copyright-list">
+            <li class="list">
+              <a href="../privacy.html"> Privacy Policy </a>
+            </li>
+            <li class="list">
+              <a href="../terms.html"> Terms & Conditions </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="copyright-contents">
+            <span> All copyright (C) 2023 Reserved </span>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="copyright-payment">
+            <ul class="payment-list">
+              <li class="list">
+                <a href="javascript:void(0)"> <img src="../assets/img/footer/c1.png" alt=""> </a>
+              </li>
+              <li class="list">
+                <a href="javascript:void(0)"> <img src="../assets/img/footer/c2.png" alt=""> </a>
+              </li>
+              <li class="list">
+                <a href="javascript:void(0)"> <img src="../assets/img/footer/c3.png" alt=""> </a>
+              </li>
+              <li class="list">
+                <a href="javascript:void(0)"> <img src="../assets/img/footer/c4.png" alt=""> </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="back-to-top">
+  <span class="back-top"><i class="las la-angle-up"></i></span>
+</div>
+
+<script data-cfasync="false" src="../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/wow.min.js"></script>
+<script src="../assets/js/slick.js"></script>
+<script src="../assets/js/jquery.nice-select.js"></script>
+<script src="../assets/js/jquery.nicescroll.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../scripts.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    fetch('https://ipapi.co/json/')
+      .then(response => response.json())
+      .then(data => {
+        const countrySelect = document.getElementById('country');
+        const countryOption = Array.from(countrySelect.options).find(option => option.value === data.country_name);
+        if (countryOption) {
+          countryOption.selected = true;
+        }
+      })
+      .catch(error => console.error('Error fetching location:', error));
+  });
+</script>
+</body></html>

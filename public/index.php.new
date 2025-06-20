@@ -1,0 +1,80 @@
+<?php
+/**
+ * Gideon's Technology Application Entry Point
+ * 
+ * This file serves as the entry point for all requests with proper route loading
+ * and middleware configuration following Slim 4 best practices.
+ */
+
+declare(strict_types=1);
+
+use DI\ContainerBuilder;
+use Slim\Factory\AppFactory;
+use App\Core\RouteRegistry;
+
+// Set the base directory
+define('BASE_DIR', dirname(__DIR__));
+
+// Load the autoloader
+require BASE_DIR . '/vendor/autoload.php';
+
+// Load environment variables
+if (file_exists(BASE_DIR . '/.env')) {
+    $dotenv = Dotenv\Dotenv::createImmutable(BASE_DIR);
+    $dotenv->load();
+}
+
+try {
+    // Create Container using PHP-DI
+    $containerBuilder = new ContainerBuilder();
+    $containerBuilder->useAutowiring(true);
+    
+    // Add container definitions
+    $definitions = require BASE_DIR . '/app/config/container.php';
+    $containerBuilder->addDefinitions($definitions);
+    
+    // Build the container
+    $container = $containerBuilder->build();
+    
+    // Create the application
+    AppFactory::setContainer($container);
+    $app = AppFactory::create();
+    
+    // Set base path if needed (for applications in subdirectories)
+    $basePath = getenv('BASE_PATH') ?: '';
+    if (!empty($basePath)) {
+        $app->setBasePath($basePath);
+    }
+    
+    // Register middleware
+    $middleware = require BASE_DIR . '/app/config/middleware.php';
+    $middleware($app);
+    
+    // Register routes
+    $routes = require BASE_DIR . '/routes/routes.php';
+    $routes($app, $container);
+    
+    // Set a global flag to indicate that Slim has handled the request
+    // This will be used by the fallback router to prevent duplicate handling
+    $GLOBALS['ROUTE_HANDLED_BY_SLIM'] = true;
+    
+    // Run the application
+    $app->run();
+} catch (\Exception $e) {
+    // Handle fatal errors
+    if (class_exists('\App\Core\ErrorHandler')) {
+        $errorHandler = \App\Core\ErrorHandler::getInstance();
+        $errorHandler->handleException($e);
+    } else {
+        // Fallback error handling if ErrorHandler is not available
+        header('HTTP/1.1 500 Internal Server Error');
+        if (getenv('APP_ENV') === 'development') {
+            echo '<h1>Application Error</h1>';
+            echo '<p>' . $e->getMessage() . '</p>';
+            echo '<pre>' . $e->getTraceAsString() . '</pre>';
+        } else {
+            echo '<h1>Internal Server Error</h1>';
+            echo '<p>An unexpected error occurred. Please try again later.</p>';
+        }
+    }
+}

@@ -1,0 +1,168 @@
+<?php
+/**
+ * API Routes
+ * 
+ * This file contains all API endpoints with:
+ * - Consistent JSON responses
+ * - Proper versioning (e.g., /api/v1/users)
+ * - Authentication middleware
+ */
+
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Core\RouteRegistry;
+use App\Controllers\Api\V1\UserController;
+use App\Controllers\Api\V1\ProductController;
+use App\Controllers\Api\V1\OrderController;
+use App\Controllers\Api\V1\ServiceController;
+use App\Controllers\Api\V1\AuthController;
+use App\Middleware\ApiAuthMiddleware;
+use App\Utilities\Logger;
+
+return function (App $app, ContainerInterface $container) {
+    // Log that we're processing API routes
+    if (class_exists('\\App\\Utilities\\Logger')) {
+        Logger::info("Processing API routes");
+    }
+    
+    // API version 1 routes
+    $app->group('/api/v1', function (RouteCollectorProxy $group) use ($container) {
+        // Authentication endpoints
+        $group->group('/auth', function (RouteCollectorProxy $group) {
+            if (!RouteRegistry::isRegistered('POST', '/api/v1/auth/login')) {
+                RouteRegistry::register('POST', '/api/v1/auth/login');
+                $group->post('/login', [AuthController::class, 'login']);
+            }
+            
+            if (!RouteRegistry::isRegistered('POST', '/api/v1/auth/register')) {
+                RouteRegistry::register('POST', '/api/v1/auth/register');
+                $group->post('/register', [AuthController::class, 'register']);
+            }
+            
+            if (!RouteRegistry::isRegistered('POST', '/api/v1/auth/refresh')) {
+                RouteRegistry::register('POST', '/api/v1/auth/refresh');
+                $group->post('/refresh', [AuthController::class, 'refresh']);
+            }
+        });
+        
+        // Protected API routes - require authentication
+        $group->group('', function (RouteCollectorProxy $group) {
+            // Users endpoints
+            $group->group('/users', function (RouteCollectorProxy $group) {
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/users')) {
+                    RouteRegistry::register('GET', '/api/v1/users');
+                    $group->get('', [UserController::class, 'getAll']);
+                }
+                
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/users/{id}')) {
+                    RouteRegistry::register('GET', '/api/v1/users/{id}');
+                    $group->get('/{id}', [UserController::class, 'getOne']);
+                }
+                
+                if (!RouteRegistry::isRegistered('POST', '/api/v1/users')) {
+                    RouteRegistry::register('POST', '/api/v1/users');
+                    $group->post('', [UserController::class, 'create']);
+                }
+                
+                if (!RouteRegistry::isRegistered('PUT', '/api/v1/users/{id}')) {
+                    RouteRegistry::register('PUT', '/api/v1/users/{id}');
+                    $group->put('/{id}', [UserController::class, 'update']);
+                }
+                
+                if (!RouteRegistry::isRegistered('DELETE', '/api/v1/users/{id}')) {
+                    RouteRegistry::register('DELETE', '/api/v1/users/{id}');
+                    $group->delete('/{id}', [UserController::class, 'delete']);
+                }
+            });
+            
+            // Products endpoints
+            $group->group('/products', function (RouteCollectorProxy $group) {
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/products')) {
+                    RouteRegistry::register('GET', '/api/v1/products');
+                    $group->get('', [ProductController::class, 'getAll']);
+                }
+                
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/products/{id}')) {
+                    RouteRegistry::register('GET', '/api/v1/products/{id}');
+                    $group->get('/{id}', [ProductController::class, 'getOne']);
+                }
+                
+                if (!RouteRegistry::isRegistered('POST', '/api/v1/products')) {
+                    RouteRegistry::register('POST', '/api/v1/products');
+                    $group->post('', [ProductController::class, 'create']);
+                }
+                
+                if (!RouteRegistry::isRegistered('PUT', '/api/v1/products/{id}')) {
+                    RouteRegistry::register('PUT', '/api/v1/products/{id}');
+                    $group->put('/{id}', [ProductController::class, 'update']);
+                }
+                
+                if (!RouteRegistry::isRegistered('DELETE', '/api/v1/products/{id}')) {
+                    RouteRegistry::register('DELETE', '/api/v1/products/{id}');
+                    $group->delete('/{id}', [ProductController::class, 'delete']);
+                }
+            });
+            
+            // Orders endpoints
+            $group->group('/orders', function (RouteCollectorProxy $group) {
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/orders')) {
+                    RouteRegistry::register('GET', '/api/v1/orders');
+                    $group->get('', [OrderController::class, 'getAll']);
+                }
+                
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/orders/{id}')) {
+                    RouteRegistry::register('GET', '/api/v1/orders/{id}');
+                    $group->get('/{id}', [OrderController::class, 'getOne']);
+                }
+                
+                if (!RouteRegistry::isRegistered('POST', '/api/v1/orders')) {
+                    RouteRegistry::register('POST', '/api/v1/orders');
+                    $group->post('', [OrderController::class, 'create']);
+                }
+                
+                if (!RouteRegistry::isRegistered('PUT', '/api/v1/orders/{id}')) {
+                    RouteRegistry::register('PUT', '/api/v1/orders/{id}');
+                    $group->put('/{id}', [OrderController::class, 'update']);
+                }
+                
+                if (!RouteRegistry::isRegistered('DELETE', '/api/v1/orders/{id}')) {
+                    RouteRegistry::register('DELETE', '/api/v1/orders/{id}');
+                    $group->delete('/{id}', [OrderController::class, 'delete']);
+                }
+            });
+            
+            // Services endpoints
+            $group->group('/services', function (RouteCollectorProxy $group) {
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/services')) {
+                    RouteRegistry::register('GET', '/api/v1/services');
+                    $group->get('', [ServiceController::class, 'getAll']);
+                }
+                
+                if (!RouteRegistry::isRegistered('GET', '/api/v1/services/{id}')) {
+                    RouteRegistry::register('GET', '/api/v1/services/{id}');
+                    $group->get('/{id}', [ServiceController::class, 'getOne']);
+                }
+                
+                if (!RouteRegistry::isRegistered('POST', '/api/v1/services')) {
+                    RouteRegistry::register('POST', '/api/v1/services');
+                    $group->post('', [ServiceController::class, 'create']);
+                }
+                
+                if (!RouteRegistry::isRegistered('PUT', '/api/v1/services/{id}')) {
+                    RouteRegistry::register('PUT', '/api/v1/services/{id}');
+                    $group->put('/{id}', [ServiceController::class, 'update']);
+                }
+                
+                if (!RouteRegistry::isRegistered('DELETE', '/api/v1/services/{id}')) {
+                    RouteRegistry::register('DELETE', '/api/v1/services/{id}');
+                    $group->delete('/{id}', [ServiceController::class, 'delete']);
+                }
+            });
+        })->add(new ApiAuthMiddleware($container));
+    });
+    
+    return $app;
+};

@@ -1,0 +1,27 @@
+{% extends 'base.twig' %}
+
+{% block title %}Error - {{ parent() }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mt-5">
+                    <div class="card-header bg-danger text-white">
+                        <h1 class="h4 mb-0">500 Internal Server Error</h1>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">Oops! Something went wrong on our end.</p>
+                        {% if message %}
+                            <div class="alert alert-info">
+                                {{ message }}
+                            </div>
+                        {% endif %}
+                        <p>Our team has been notified and we're working to fix the issue. Please try again later.</p>
+                        <a href="{{ path_for('store.index') }}" class="btn btn-primary">Return to Store</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

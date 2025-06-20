@@ -1,0 +1,445 @@
+<?php
+/**
+ * GStore Routes
+ * 
+ * This file contains routes related to the online store functionality.
+ * Uses RouteRegistry to prevent duplicate route registrations.
+ */
+
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Core\RouteRegistry;
+use App\Utilities\Logger;
+
+// We'll let the main routes.php file handle the global flag
+// This ensures consistent loading across the application
+
+return function (App $app, $container = null) {
+        // Get container if not provided
+        if (!$container && method_exists($app, 'getContainer')) {
+            $container = $app->getContainer();
+        }
+        
+        // Register the main GStore route
+        if (!RouteRegistry::isRegistered('GET', '/gstore')) {
+            RouteRegistry::register('GET', '/gstore');
+            $app->get('/gstore', function (Request $request, Response $response) use ($container) {
+                // Check if database is connected
+                $dbConnected = false;
+                $products = [];
+                
+                try {
+                    // Get database configuration
+                    $dbConfig = require dirname(__DIR__) . '/app/config/database.php';
+                    
+                    // Connect to the database
+                    $dbPath = $dbConfig['default']['database'];
+                    $db = new PDO('sqlite:' . $dbPath);
+                    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    
+                    // Test query to verify connection
+                    $stmt = $db->query("SELECT name FROM sqlite_master WHERE type='table' LIMIT 1");
+                    $tables = $stmt->fetchAll(PDO::FETCH_COLUMN);
+                    $dbConnected = count($tables) > 0;
+                    
+                    // Get products from database if connected
+                    if ($dbConnected) {
+                        try {
+                            $stmt = $db->query("SELECT * FROM products LIMIT 6");
+                            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        } catch (PDOException $e) {
+                            // Table might not exist, use sample data instead
+                            Logger::error("Error fetching products: " . $e->getMessage());
+                            $products = [];
+                        }
+                    }
+                } catch (PDOException $e) {
+                    Logger::error("Database connection error: " . $e->getMessage());
+                    $dbConnected = false;
+                    $products = [];
+                }
+                
+                // Sample products if database connection failed or no products found
+                if (empty($products)) {
+                    $products = [
+                        [
+                            'id' => 1,
+                            'name' => 'Laptop Pro X1',
+                            'description' => 'High-performance laptop with 16GB RAM and 512GB SSD.',
+                            'price' => 1299.99,
+                            'image' => 'https://via.placeholder.com/300x200?text=Laptop'
+                        ],
+                        [
+                            'id' => 2,
+                            'name' => 'Smartphone Z10',
+                            'description' => 'Latest smartphone with 128GB storage and dual camera.',
+                            'price' => 899.99,
+                            'image' => 'https://via.placeholder.com/300x200?text=Smartphone'
+                        ],
+                        [
+                            'id' => 3,
+                            'name' => 'Wireless Headphones',
+                            'description' => 'Premium noise-canceling wireless headphones.',
+                            'price' => 249.99,
+                            'image' => 'https://via.placeholder.com/300x200?text=Headphones'
+                        ],
+                        [
+                            'id' => 4,
+                            'name' => 'Smart Watch Pro',
+                            'description' => 'Advanced smartwatch with health monitoring features.',
+                            'price' => 349.99,
+                            'image' => 'https://via.placeholder.com/300x200?text=Watch'
+                        ],
+                        [
+                            'id' => 5,
+                            'name' => 'Tablet Air',
+                            'description' => 'Lightweight tablet with 10-inch display and 64GB storage.',
+                            'price' => 499.99,
+                            'image' => 'https://via.placeholder.com/300x200?text=Tablet'
+                        ],
+                        [
+                            'id' => 6,
+                            'name' => 'Bluetooth Speaker',
+                            'description' => 'Portable Bluetooth speaker with 20-hour battery life.',
+                            'price' => 129.99,
+                            'image' => 'https://via.placeholder.com/300x200?text=Speaker'
+                        ]
+                    ];
+                }
+                
+                // Get categories
+                $categories = [
+                    'All Products',
+                    'Computers',
+                    'Mobile',
+                    'Accessories',
+                    'Software',
+                    'Services'
+                ];
+                $html = <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GStore - Gideon's Technology</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            padding-top: 56px;
+            background-color: #f8f9fa;
+        }
+        .card {
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #0d6efd;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Gideon's Technology</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gtech">GTech Platform</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/gstore">GStore</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h1 class="display-5">GStore</h1>
+                <p class="lead">Your one-stop shop for technology products and services</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search products...">
+                    <button class="btn btn-primary" type="button">Search</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <form class="row g-3">
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Search products...">
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-select">
+                                    <option selected>All Categories</option>
+                                    <option>Computers</option>
+                                    <option>Mobile</option>
+                                    <option>Accessories</option>
+                                    <option>Software</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">Categories</h5>
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="/gstore/categories/computers" class="list-group-item list-group-item-action">Computers</a>
+                        <a href="/gstore/categories/mobile" class="list-group-item list-group-item-action">Mobile</a>
+                        <a href="/gstore/categories/accessories" class="list-group-item list-group-item-action">Accessories</a>
+                        <a href="/gstore/categories/software" class="list-group-item list-group-item-action">Software</a>
+                        <a href="/gstore/categories/services" class="list-group-item list-group-item-action">Services</a>
+                        <a href="/gstore/categories/templates" class="list-group-item list-group-item-action">Templates</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-9">
+                <div class="row">
+                    <?php foreach ($products as $product): ?>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <img src="<?php echo htmlspecialchars($product['image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo htmlspecialchars($product['name']); ?></h5>
+                                    <p class="card-text"><?php echo htmlspecialchars($product['description']); ?></p>
+                                    <p class="product-price">$<?php echo number_format($product['price'], 2); ?></p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-primary">Add to Cart</a>
+                                        <a href="#" class="btn btn-outline-secondary">Details</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Gideon's Technology</h5>
+                    <p>Providing cutting-edge technology solutions since 2020.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-white">Home</a></li>
+                        <li><a href="/services" class="text-white">Services</a></li>
+                        <li><a href="/gtech" class="text-white">GTech Platform</a></li>
+                        <li><a href="/gstore" class="text-white">Store</a></li>
+                        <li><a href="/about" class="text-white">About</a></li>
+                        <li><a href="/contact" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <address>
+                        123 Tech Street<br>
+                        San Francisco, CA 94107<br>
+                        <a href="mailto:info@gideonstech.com" class="text-white">info@gideonstech.com</a><br>
+                        <a href="tel:+1234567890" class="text-white">(123) 456-7890</a>
+                    </address>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Gideon's Technology. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+HTML;
+
+                $response->getBody()->write($html);
+                return $response->withHeader('Content-Type', 'text/html');
+            });
+        }
+        
+        // Public store routes
+        $app->group('/gstore', function (RouteCollectorProxy $group) use ($container) {
+            
+            // Basic product routes
+            if (!RouteRegistry::isRegistered('GET', '/gstore/products')) {
+                RouteRegistry::register('GET', '/gstore/products');
+                $group->get('/products', function (Request $request, Response $response) {
+                    $response->getBody()->write('<h1>Products</h1><p>Browse our products</p>');
+                    return $response;
+                })->setName('store.products');
+            }
+            
+            // Product category route
+            if (!RouteRegistry::isRegistered('GET', '/gstore/products/category/{category}')) {
+                RouteRegistry::register('GET', '/gstore/products/category/{category}');
+                $group->get('/products/category/{category}', function (Request $request, Response $response, $args) {
+                    $category = $args['category'];
+                    $response->getBody()->write("<h1>Products in {$category}</h1><p>Browse products in this category</p>");
+                    return $response;
+                })->setName('store.products.category');
+            }
+            
+            // Direct category routes for specific categories
+            if (!RouteRegistry::isRegistered('GET', '/gstore/categories/computers')) {
+                RouteRegistry::register('GET', '/gstore/categories/computers');
+                $group->get('/categories/computers', function (Request $request, Response $response) {
+                    $response->getBody()->write("<h1>Products in computers</h1><p>Browse products in this category</p>");
+                    return $response;
+                })->setName('store.categories.computers');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/gstore/categories/mobile')) {
+                RouteRegistry::register('GET', '/gstore/categories/mobile');
+                $group->get('/categories/mobile', function (Request $request, Response $response) {
+                    $response->getBody()->write("<h1>Products in mobile</h1><p>Browse products in this category</p>");
+                    return $response;
+                })->setName('store.categories.mobile');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/gstore/categories/accessories')) {
+                RouteRegistry::register('GET', '/gstore/categories/accessories');
+                $group->get('/categories/accessories', function (Request $request, Response $response) {
+                    $response->getBody()->write("<h1>Products in accessories</h1><p>Browse products in this category</p>");
+                    return $response;
+                })->setName('store.categories.accessories');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/gstore/categories/software')) {
+                RouteRegistry::register('GET', '/gstore/categories/software');
+                $group->get('/categories/software', function (Request $request, Response $response) {
+                    $response->getBody()->write("<h1>Products in software</h1><p>Browse products in this category</p>");
+                    return $response;
+                })->setName('store.categories.software');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/gstore/categories/services')) {
+                RouteRegistry::register('GET', '/gstore/categories/services');
+                $group->get('/categories/services', function (Request $request, Response $response) {
+                    $response->getBody()->write("<h1>Products in services</h1><p>Browse products in this category</p>");
+                    return $response;
+                })->setName('store.categories.services');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/gstore/categories/templates')) {
+                RouteRegistry::register('GET', '/gstore/categories/templates');
+                $group->get('/categories/templates', function (Request $request, Response $response) {
+                    $response->getBody()->write("<h1>Website Templates</h1><p>Browse our premium website templates</p>");
+                    return $response;
+                })->setName('store.categories.templates');
+            }
+            
+            // Product detail route
+            if (!RouteRegistry::isRegistered('GET', '/gstore/products/{id}')) {
+                RouteRegistry::register('GET', '/gstore/products/{id}');
+                $group->get('/products/{id}', function (Request $request, Response $response, $args) {
+                    $id = $args['id'];
+                    $response->getBody()->write("<h1>Product #{$id}</h1><p>View details for this product</p>");
+                    return $response;
+                })->setName('store.products.show');
+            }
+            
+            // Comment out the direct product route - it's now handled in index.php
+            // Register parameterized product route
+            if (!RouteRegistry::isRegistered('GET', '/gstore/product/{id}')) {
+                RouteRegistry::register('GET', '/gstore/product/{id}');
+                $group->get('/product/{id}', function (Request $request, Response $response, $args) {
+                    $id = $args['id'];
+                    // Product detail logic here
+                    $html = "Product ID: {$id} details page";
+                    $response->getBody()->write($html);
+                    return $response->withHeader('Content-Type', 'text/html');
+                });
+            }
+            //         $response->getBody()->write("<h1>Product #{$id}</h1><p>View details for this product</p>");
+            //         return $response;
+            //     })->setName('store.product.detail');
+            // }
+            
+            // Remove specific numbered product routes to avoid conflicts
+            // The variable route /gstore/product/{id} will handle all product IDs
+            
+            // Cart routes
+            if (!RouteRegistry::isRegistered('GET', '/gstore/cart')) {
+                RouteRegistry::register('GET', '/gstore/cart');
+                $group->get('/cart', function (Request $request, Response $response) {
+                    $response->getBody()->write('<h1>Shopping Cart</h1><p>View your cart items</p>');
+                    return $response;
+                })->setName('store.cart');
+            }
+        });
+        
+        // Admin store routes
+        $app->group('/admin', function (RouteCollectorProxy $adminGroup) {
+            // Product management
+            if (!RouteRegistry::isRegistered('GET', '/admin/products')) {
+                RouteRegistry::register('GET', '/admin/products');
+                $adminGroup->get('/products', function (Request $request, Response $response) {
+                    $response->getBody()->write('<h1>Admin: Products</h1><p>Manage store products</p>');
+                    return $response;
+                })->setName('admin.products');
+            }
+            
+            // Order management
+            if (!RouteRegistry::isRegistered('GET', '/admin/orders')) {
+                RouteRegistry::register('GET', '/admin/orders');
+                $adminGroup->get('/orders', function (Request $request, Response $response) {
+                    $response->getBody()->write('<h1>Admin: Orders</h1><p>Manage customer orders</p>');
+                    return $response;
+                })->setName('admin.orders');
+            }
+        });
+        
+        return $app;
+};

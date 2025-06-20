@@ -1,0 +1,68 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Gideon's Technology - Development Server Script
+ * 
+ * This script starts the PHP built-in server on port 8000
+ * for local development purposes.
+ */
+
+echo "🚀 Starting Gideon's Technology application on port 8000...\n\n";
+
+// Check if database directory exists, if not create it
+$dbDir = __DIR__ . '/database';
+if (!file_exists($dbDir)) {
+    echo "Creating database directory...\n";
+    mkdir($dbDir, 0755, true);
+}
+
+// Check if .env file exists, create a sample one if not
+if (!file_exists(__DIR__ . '/.env')) {
+    echo "⚠️ .env file not found. Creating sample .env file...\n";
+    $envContent = "APP_ENV=development\n" .
+                 "APP_DEBUG=true\n" .
+                 "APP_URL=http://localhost:8000\n" .
+                 "DB_HOST=localhost\n" .
+                 "DB_NAME=gideons_tech\n" .
+                 "DB_USER=root\n" .
+                 "DB_PASS=root\n";
+    file_put_contents(__DIR__ . '/.env', $envContent);
+    echo "✅ Sample .env file created\n";
+}
+
+// Check if composer is installed
+$composerInstalled = false;
+exec('composer --version 2>/dev/null', $output, $returnVar);
+if ($returnVar === 0) {
+    $composerInstalled = true;
+}
+
+// Check if vendor directory exists
+if (!file_exists(__DIR__ . '/vendor')) {
+    if ($composerInstalled) {
+        echo "Vendor directory not found. Running composer install...\n";
+        exec('composer install', $output, $returnVar);
+        if ($returnVar !== 0) {
+            echo "❌ Error installing dependencies. Please run 'composer install' manually.\n";
+            exit(1);
+        }
+        echo "✅ Dependencies installed\n";
+    } else {
+        echo "❌ Composer not found and vendor directory missing.\n";
+        echo "Please install Composer (https://getcomposer.org/) and run 'composer install'.\n";
+        exit(1);
+    }
+}
+
+// Launch the server
+$serverCommand = sprintf(
+    'php -S localhost:8000 -t %s %s/router.php',
+    escapeshellarg(__DIR__ . '/public'),
+    escapeshellarg(__DIR__)
+);
+
+echo "Server starting on http://localhost:8000\n";
+echo "Press Ctrl+C to stop the server\n\n";
+
+// Start the server
+passthru($serverCommand);

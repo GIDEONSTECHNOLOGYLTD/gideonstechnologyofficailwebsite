@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to include the jQuery Fix Script</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        .code-block { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .highlight { background-color: #ffff99; padding: 2px 5px; }
+        h1, h2 { color: #333; }
+    </style>
+</head>
+<body>
+    <h1>How to Include the jQuery Fix Script</h1>
+    
+    <p>To fix the jQuery selector error, you need to add the jquery-fix.js script to your HTML files in a specific order:</p>
+    
+    <ol>
+        <li>Add it <strong>after</strong> the jQuery library</li>
+        <li>Add it <strong>before</strong> any other scripts that use jQuery (like plugins or your custom code)</li>
+    </ol>
+    
+    <h2>Instructions</h2>
+    <p>Find the script tags in your HTML files (like index.html, webdev.html, formfortemplate.html) and add the script tag for jquery-fix.js as shown below:</p>
+    
+    <div class="code-block">
+        <pre>
+&lt;!-- First jQuery -->
+&lt;script src="assets/js/jquery-3.6.0.min.js">&lt;/script>
+
+&lt;!-- Then jQuery Migrate (if you're using it) -->
+&lt;script src="assets/js/jquery-migrate.min.js">&lt;/script>
+
+<span class="highlight">&lt;!-- Add jQuery Fix right here -->
+&lt;script src="assets/js/jquery-fix.js">&lt;/script></span>
+
+&lt;!-- Then other jQuery plugins and scripts -->
+&lt;script src="assets/js/bootstrap.bundle.min.js">&lt;/script>
+&lt;script src="assets/js/wow.min.js">&lt;/script>
+&lt;script src="assets/js/main.js">&lt;/script>
+&lt;script src="assets/js/scripts.js">&lt;/script>
+        </pre>
+    </div>
+    
+    <h2>Example Files to Update</h2>
+    <p>Based on your error messages, you should add this to:</p>
+    <ul>
+        <li>/Users/gideonaina/Documents/Gideons-Technology/webdev.html</li>
+        <li>/Users/gideonaina/Documents/Gideons-Technology/formfortemplate.html</li>
+        <li>Any other HTML files that use jQuery</li>
+    </ul>
+    
+    <p>After adding the script tag to your HTML files, restart your server with <code>./start-server.sh</code></p>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<?php
+
+/**
+ * Store Routes
+ * 
+ * This file contains routes related to the online store functionality
+ * Updated to use RouteRegistry to prevent duplicate route registrations
+ */
+
+// Ensure BASE_PATH is defined
+if (!defined('BASE_PATH')) {
+    define('BASE_PATH', dirname(__DIR__));
+}
+
+use App\Controllers\StoreController;
+use App\Controllers\ProductController;
+use App\Controllers\OrderController;
+use App\Http\Middleware\AuthMiddleware;
+use App\Http\Middleware\AdminMiddleware;
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Core\RouteRegistry;
+use App\Core\SafeRouteLoader;
+
+// Define a global flag to prevent duplicate loading
+if (!defined('GSTORE_ROUTES_REGISTERED')) {
+    define('GSTORE_ROUTES_REGISTERED', true);
+    
+    return function (\Slim\App $app) {
+        // Get container
+        $container = $app->getContainer();
+        
+        // Create a SafeRouteLoader instance
+        $safeRouter = new SafeRouteLoader($app);
+        
+        // Public store routes - change from /store to /gstore to match URL
+        $app->group('/gstore', function (RouteCollectorProxy $group) use ($container, $safeRouter) {
+            // Product browsing - create controller instance directly with dependencies
+            $group->get('', function (Request $request, Response $response) use ($container) {
+                // Use the container to get dependencies if available, otherwise create them
+                if ($container->has('renderer')) {
+                    $renderer = $container->get('renderer');
+                } else {
+                    $renderer = new \Slim\Views\PhpRenderer(__DIR__ . '/../resources/views');
+                }
+                
+                // Create a simple Twig environment for testing without database dependencies
+                $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../resources/views');
+                $twig = new \Slim\Views\Twig($loader, ['cache' => false, 'debug' => true]);
+                $flash = new \Slim\Flash\Messages();
+                
+                // Create controller instance with the correct dependencies
+                $controller = new StoreController($twig, $flash, $renderer);
+                return $controller->index($request, $response);
+            })->setName('store.index');
+            
+            $group->get('/products', [ProductController::class, 'index'])->setName('store.products');
+            
+            // Product category must come BEFORE product ID route to avoid conflicts
+            $group->get('/products/category/{category}', [ProductController::class, 'byCategory'])->setName('store.products.category');
+            
+            // Product ID (variable) route must come AFTER more specific routes
+            $group->get('/products/{id}', [ProductController::class, 'show'])->setName('store.products.show');
+            
+            // Cart management
+            $group->get('/cart', [StoreController::class, 'viewCart'])->setName('store.cart');
+            $group->post('/cart/add/{id}', [StoreController::class, 'addToCart'])->setName('store.cart.add');
+            $group->put('/cart/update/{id}', [StoreController::class, 'updateCart'])->setName('store.cart.update');
+            $group->delete('/cart/remove/{id}', [StoreController::class, 'removeFromCart'])->setName('store.cart.remove');
+            
+            // Checkout and orders - requires authentication
+            $group->group('/checkout', function (RouteCollectorProxy $checkoutGroup) use ($container) {
+                $checkoutGroup->get('', [StoreController::class, 'checkout'])->setName('store.checkout');
+                $checkoutGroup->post('/place-order', [StoreController::class, 'placeOrder'])->setName('store.checkout.place');
+                $checkoutGroup->get('/confirmation/{orderId}', [StoreController::class, 'confirmation'])->setName('store.checkout.confirmation');
+            })->add($container->get('App\Http\Middleware\AuthMiddleware'));
+            
+            // Customer orders - requires authentication - using RouteRegistry to prevent duplicates
+            if (!RouteRegistry::isRegistered('GROUP', '/gstore/orders')) {
+                RouteRegistry::register('GROUP', '/gstore/orders');
+                $group->group('/orders', function (RouteCollectorProxy $orderGroup) use ($container, $safeRouter) {
+                    // Register each route with RouteRegistry
+                    if (!RouteRegistry::isRegistered('GET', '/gstore/orders')) {
+                        RouteRegistry::register('GET', '/gstore/orders');
+                        $orderGroup->get('', [OrderController::class, 'index'])->setName('store.orders');
+                        error_log('Registered route: GET /gstore/orders');
+                    }
+                    
+                    if (!RouteRegistry::isRegistered('GET', '/gstore/orders/{id}')) {
+                        RouteRegistry::register('GET', '/gstore/orders/{id}');
+                        $orderGroup->get('/{id}', [OrderController::class, 'show'])->setName('store.orders.show');
+                        error_log('Registered route: GET /gstore/orders/{id}');
+                    }
+                    
+                    if (!RouteRegistry::isRegistered('POST', '/gstore/orders/{id}/cancel')) {
+                        RouteRegistry::register('POST', '/gstore/orders/{id}/cancel');
+                        $orderGroup->post('/{id}/cancel', [OrderController::class, 'cancel'])->setName('store.orders.cancel');
+                        error_log('Registered route: POST /gstore/orders/{id}/cancel');
+                    }
+                })->add($container->get('App\Http\Middleware\AuthMiddleware'));
+            }
+        });
+        
+        // Admin store routes - requires admin authentication
+        $app->group('/admin', function (RouteCollectorProxy $adminGroup) use ($container) {
+            // Product management
+            // Use a different route name to avoid conflicts with admin.php
+            $adminGroup->get('/products', [ProductController::class, 'adminIndex'])->setName('store.admin.products');
+            $adminGroup->get('/products/create', [ProductController::class, 'create'])->setName('admin.products.create');
+            $adminGroup->post('/products', [ProductController::class, 'store'])->setName('admin.products.store');
+            $adminGroup->get('/products/{id}/edit', [ProductController::class, 'edit'])->setName('admin.products.edit');
+            $adminGroup->put('/products/{id}', [ProductController::class, 'update'])->setName('admin.products.update');
+            $adminGroup->delete('/products/{id}', [ProductController::class, 'delete'])->setName('admin.products.delete');
+            
+            // Order management - using RouteRegistry to prevent duplicates
+            if (!RouteRegistry::isRegistered('GET', '/admin/orders')) {
+                RouteRegistry::register('GET', '/admin/orders');
+                $adminGroup->get('/orders', [OrderController::class, 'adminIndex'])->setName('admin.orders');
+                error_log('Registered route: GET /admin/orders');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/orders/{id}')) {
+                RouteRegistry::register('GET', '/admin/orders/{id}');
+                $adminGroup->get('/orders/{id}', [OrderController::class, 'adminShow'])->setName('admin.orders.show');
+                error_log('Registered route: GET /admin/orders/{id}');
+            }
+            
+            if (!RouteRegistry::isRegistered('PUT', '/admin/orders/{id}/status')) {
+                RouteRegistry::register('PUT', '/admin/orders/{id}/status');
+                $adminGroup->put('/orders/{id}/status', [OrderController::class, 'updateStatus'])->setName('admin.orders.status');
+                error_log('Registered route: PUT /admin/orders/{id}/status');
+            }
+            
+            if (!RouteRegistry::isRegistered('DELETE', '/admin/orders/{id}')) {
+                RouteRegistry::register('DELETE', '/admin/orders/{id}');
+                $adminGroup->delete('/orders/{id}', [OrderController::class, 'adminDelete'])->setName('admin.orders.delete');
+                error_log('Registered route: DELETE /admin/orders/{id}');
+            }
+            
+            // Analytics and reports 
+            $adminGroup->get('/reports/sales', [StoreController::class, 'salesReport'])->setName('admin.reports.sales');
+            $adminGroup->get('/reports/products', [ProductController::class, 'productReport'])->setName('admin.reports.products');
+            $adminGroup->get('/reports/customers', [StoreController::class, 'customerReport'])->setName('admin.reports.customers');
+        })->add($container->get('App\Http\Middleware\AdminMiddleware'));
+    };
+} else {
+    // If already registered, return an empty function
+    return function (\Slim\App $app) {
+        // Routes already registered
+        error_log('GStore routes already registered, skipping...');
+    };
+}

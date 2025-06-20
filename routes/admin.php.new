@@ -1,0 +1,157 @@
+<?php
+/**
+ * Admin Routes
+ * 
+ * This file contains all admin routes:
+ * - Protected by AdminMiddleware
+ * - Organized by resource (users, products, orders)
+ */
+
+use Slim\App;
+use Slim\Routing\RouteCollectorProxy;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Core\RouteRegistry;
+use App\Controllers\Admin\DashboardController;
+use App\Controllers\Admin\UserController;
+use App\Controllers\Admin\ProductController;
+use App\Controllers\Admin\OrderController;
+use App\Controllers\Admin\SettingsController;
+use App\Middleware\AdminAuthMiddleware;
+use App\Utilities\Logger;
+
+return function (App $app, ContainerInterface $container) {
+    // Log that we're processing admin routes
+    if (class_exists('\\App\\Utilities\\Logger')) {
+        Logger::info("Processing admin routes");
+    }
+    
+    // All admin routes are grouped under /admin and protected by AdminAuthMiddleware
+    $app->group('/admin', function (RouteCollectorProxy $group) use ($container) {
+        // Admin dashboard
+        if (!RouteRegistry::isRegistered('GET', '/admin')) {
+            RouteRegistry::register('GET', '/admin');
+            $group->get('', [DashboardController::class, 'index'])->setName('admin.dashboard');
+        }
+        
+        // User management
+        $group->group('/users', function (RouteCollectorProxy $group) {
+            if (!RouteRegistry::isRegistered('GET', '/admin/users')) {
+                RouteRegistry::register('GET', '/admin/users');
+                $group->get('', [UserController::class, 'index'])->setName('admin.users');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/users/create')) {
+                RouteRegistry::register('GET', '/admin/users/create');
+                $group->get('/create', [UserController::class, 'create'])->setName('admin.users.create');
+            }
+            
+            if (!RouteRegistry::isRegistered('POST', '/admin/users')) {
+                RouteRegistry::register('POST', '/admin/users');
+                $group->post('', [UserController::class, 'store'])->setName('admin.users.store');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/users/{id}')) {
+                RouteRegistry::register('GET', '/admin/users/{id}');
+                $group->get('/{id}', [UserController::class, 'show'])->setName('admin.users.show');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/users/{id}/edit')) {
+                RouteRegistry::register('GET', '/admin/users/{id}/edit');
+                $group->get('/{id}/edit', [UserController::class, 'edit'])->setName('admin.users.edit');
+            }
+            
+            if (!RouteRegistry::isRegistered('PUT', '/admin/users/{id}')) {
+                RouteRegistry::register('PUT', '/admin/users/{id}');
+                $group->put('/{id}', [UserController::class, 'update'])->setName('admin.users.update');
+            }
+            
+            if (!RouteRegistry::isRegistered('DELETE', '/admin/users/{id}')) {
+                RouteRegistry::register('DELETE', '/admin/users/{id}');
+                $group->delete('/{id}', [UserController::class, 'delete'])->setName('admin.users.delete');
+            }
+        });
+        
+        // Product management
+        $group->group('/products', function (RouteCollectorProxy $group) {
+            if (!RouteRegistry::isRegistered('GET', '/admin/products')) {
+                RouteRegistry::register('GET', '/admin/products');
+                $group->get('', [ProductController::class, 'index'])->setName('admin.products');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/products/create')) {
+                RouteRegistry::register('GET', '/admin/products/create');
+                $group->get('/create', [ProductController::class, 'create'])->setName('admin.products.create');
+            }
+            
+            if (!RouteRegistry::isRegistered('POST', '/admin/products')) {
+                RouteRegistry::register('POST', '/admin/products');
+                $group->post('', [ProductController::class, 'store'])->setName('admin.products.store');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/products/{id}')) {
+                RouteRegistry::register('GET', '/admin/products/{id}');
+                $group->get('/{id}', [ProductController::class, 'show'])->setName('admin.products.show');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/products/{id}/edit')) {
+                RouteRegistry::register('GET', '/admin/products/{id}/edit');
+                $group->get('/{id}/edit', [ProductController::class, 'edit'])->setName('admin.products.edit');
+            }
+            
+            if (!RouteRegistry::isRegistered('PUT', '/admin/products/{id}')) {
+                RouteRegistry::register('PUT', '/admin/products/{id}');
+                $group->put('/{id}', [ProductController::class, 'update'])->setName('admin.products.update');
+            }
+            
+            if (!RouteRegistry::isRegistered('DELETE', '/admin/products/{id}')) {
+                RouteRegistry::register('DELETE', '/admin/products/{id}');
+                $group->delete('/{id}', [ProductController::class, 'delete'])->setName('admin.products.delete');
+            }
+        });
+        
+        // Order management
+        $group->group('/orders', function (RouteCollectorProxy $group) {
+            if (!RouteRegistry::isRegistered('GET', '/admin/orders')) {
+                RouteRegistry::register('GET', '/admin/orders');
+                $group->get('', [OrderController::class, 'index'])->setName('admin.orders');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/orders/{id}')) {
+                RouteRegistry::register('GET', '/admin/orders/{id}');
+                $group->get('/{id}', [OrderController::class, 'show'])->setName('admin.orders.show');
+            }
+            
+            if (!RouteRegistry::isRegistered('GET', '/admin/orders/{id}/edit')) {
+                RouteRegistry::register('GET', '/admin/orders/{id}/edit');
+                $group->get('/{id}/edit', [OrderController::class, 'edit'])->setName('admin.orders.edit');
+            }
+            
+            if (!RouteRegistry::isRegistered('PUT', '/admin/orders/{id}')) {
+                RouteRegistry::register('PUT', '/admin/orders/{id}');
+                $group->put('/{id}', [OrderController::class, 'update'])->setName('admin.orders.update');
+            }
+            
+            if (!RouteRegistry::isRegistered('PUT', '/admin/orders/{id}/status')) {
+                RouteRegistry::register('PUT', '/admin/orders/{id}/status');
+                $group->put('/{id}/status', [OrderController::class, 'updateStatus'])->setName('admin.orders.status');
+            }
+        });
+        
+        // Settings
+        $group->group('/settings', function (RouteCollectorProxy $group) {
+            if (!RouteRegistry::isRegistered('GET', '/admin/settings')) {
+                RouteRegistry::register('GET', '/admin/settings');
+                $group->get('', [SettingsController::class, 'index'])->setName('admin.settings');
+            }
+            
+            if (!RouteRegistry::isRegistered('POST', '/admin/settings')) {
+                RouteRegistry::register('POST', '/admin/settings');
+                $group->post('', [SettingsController::class, 'update'])->setName('admin.settings.update');
+            }
+        });
+    })->add(new AdminAuthMiddleware($container));
+    
+    return $app;
+};

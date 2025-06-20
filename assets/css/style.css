@@ -1,0 +1,368 @@
+/* Main Style CSS for Gideon's Technology */
+
+/* General Styling */
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --dark-color: #343a40;
+  --light-color: #f8f9fa;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: #0056b3;
+}
+
+.section-padding {
+  padding: 80px 0;
+}
+
+/* Header Styles */
+.header-area {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+  background-color: #fff;
+  box-shadow: 0 2px 28px 0 rgba(0, 0, 0, 0.06);
+}
+
+.navbar-brand img {
+  max-height: 50px;
+}
+
+.navbar-nav .nav-link {
+  padding: 25px 15px;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  color: var(--primary-color);
+}
+
+/* Hero Section */
+.hero-area {
+  background-color: #f6f9fe;
+  padding: 120px 0;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--dark-color);
+}
+
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: var(--secondary-color);
+}
+
+.hero-img {
+  text-align: center;
+}
+
+.hero-img img {
+  max-width: 100%;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  padding: 12px 30px;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.btn-primary:hover {
+  background-color: #0062cc;
+  border-color: #0062cc;
+}
+
+/* Services Section */
+.service-item {
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.service-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-icon {
+  font-size: 40px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.service-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.service-desc {
+  color: var(--secondary-color);
+}
+
+/* About Section */
+.about-content h2 {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  margin-bottom: 20px;
+  color: var(--secondary-color);
+}
+
+.about-img img {
+  border-radius: 8px;
+  max-width: 100%;
+}
+
+/* Projects Section */
+.project-item {
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.project-img {
+  position: relative;
+}
+
+.project-img img {
+  width: 100%;
+  border-radius: 8px;
+  transition: all 0.5s ease;
+}
+
+.project-content {
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  color: #fff;
+  transform: translateY(100%);
+  transition: all 0.3s ease;
+}
+
+.project-item:hover .project-content {
+  transform: translateY(0);
+}
+
+.project-item:hover img {
+  transform: scale(1.1);
+}
+
+.project-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Testimonials */
+.testimonial-item {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  margin: 10px;
+}
+
+.testimonial-content {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+}
+
+.client-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.client-img img {
+  width: 100%;
+}
+
+.client-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.client-role {
+  color: var(--secondary-color);
+  font-size: 14px;
+}
+
+/* Contact Section */
+.contact-info-item {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.contact-icon {
+  font-size: 24px;
+  color: var(--primary-color);
+  margin-right: 15px;
+}
+
+.contact-details h5 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.contact-form .form-control {
+  height: 50px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.contact-form textarea.form-control {
+  height: 150px;
+}
+
+/* Footer */
+.footer-area {
+  background-color: var(--dark-color);
+  padding: 60px 0 0;
+  color: #fff;
+}
+
+.footer-widget {
+  margin-bottom: 40px;
+}
+
+.footer-widget h4 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-widget h4:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+.footer-widget ul {
+  padding: 0;
+  list-style: none;
+}
+
+.footer-widget ul li {
+  margin-bottom: 10px;
+}
+
+.footer-widget ul li a {
+  color: #f1f1f1;
+  transition: all 0.3s ease;
+}
+
+.footer-widget ul li a:hover {
+  color: var(--primary-color);
+  padding-left: 5px;
+}
+
+.social-icons a {
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 35px;
+  margin-right: 5px;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: var(--primary-color);
+}
+
+.footer-bottom {
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+  .navbar-nav .nav-link {
+    padding: 15px;
+  }
+  
+  .hero-content h1 {
+    font-size: 36px;
+  }
+  
+  .hero-content p {
+    font-size: 16px;
+  }
+  
+  .section-padding {
+    padding: 60px 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-content {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .hero-content h1 {
+    font-size: 30px;
+  }
+  
+  .about-content {
+    margin-bottom: 30px;
+  }
+  
+  .contact-info {
+    margin-bottom: 40px;
+  }
+}

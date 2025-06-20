@@ -1,0 +1,39 @@
+# Environment files
+.env
+.env.backup
+
+# Backup directories
+app_backup_*/
+backup*/
+*_backup/
+
+# Logs
+logs/
+*.log
+
+# Cache
+var/cache/
+*.cache
+
+# Vendor dependencies
+/vendor/
+/node_modules/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# IDE specific
+.idea/
+.vscode/
+*.sublime-*
+
+# Database files
+*.sqlite
+*.db
+
+# Temporary files
+tmp/
+temp/
+temp_*/
+node_modules

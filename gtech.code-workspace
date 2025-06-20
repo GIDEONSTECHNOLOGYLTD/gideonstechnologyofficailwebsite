@@ -1,0 +1,33 @@
+{
+    "folders": [
+        {
+            "path": ".",
+            "name": "Gideons Technology"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "**/.git": true,
+            "**/.DS_Store": true,
+            "**/node_modules": true,
+            "**/vendor": true
+        },
+        "php.validate.enable": true,
+        "php.suggest.basic": true,
+        "editor.formatOnSave": true,
+        "files.associations": {
+            "*.php": "php"
+        },
+        "search.exclude": {
+            "**/vendor": true,
+            "**/node_modules": true
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "bmewburn.vscode-intelephense-client",
+            "xdebug.php-debug",
+            "neilbrayfield.php-docblocker"
+        ]
+    }
+}

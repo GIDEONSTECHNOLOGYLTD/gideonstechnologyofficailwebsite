@@ -1,0 +1,42 @@
+# Enable PHP execution
+AddHandler application/x-httpd-php .php
+
+# Enable rewrite engine
+RewriteEngine On
+RewriteBase /
+
+# Allow direct access to specific directories
+<FilesMatch "^(index|adminer)\.php$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# Allow access to assets
+<FilesMatch "\.(css|js|gif|jpg|jpeg|png|ico|ttf|woff|woff2)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+# If not a file/directory, route to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+# PHP settings
+php_value display_errors On
+php_value memory_limit 256M
+php_value max_execution_time 300
+php_value upload_max_filesize 64M
+php_value post_max_size 64M
+
+# Security headers
+Header set X-Content-Type-Options "nosniff"
+Header set X-XSS-Protection "1; mode=block"
+Header set X-Frame-Options "SAMEORIGIN"
+
+# Allow access to Adminer
+<Directory "/adminer">
+    Order Allow,Deny
+    Allow from all
+    Require all granted
+</Directory>

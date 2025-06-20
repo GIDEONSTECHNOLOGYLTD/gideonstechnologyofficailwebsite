@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="description" content="Gideons Technology Store - Buy and sell tech gadgets and more">
+<meta name="keywords" content="Gideons Technology, Store, Tech Gadgets, Buy, Sell, P2P">
+<meta name="author" content="Gideons Technology">
+<title> Gideons Technology | Gtech Store</title>
+
+<link rel="icon" href="../assets/icon.png" sizes="32x32" type="assets/png">
+
+<link rel="stylesheet" href="../assets/css/animate.css">
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/css/flaticon.css">
+<link rel="stylesheet" href="../assets/css/slick.css">
+<link rel="stylesheet" href="../assets/css/line-awesome.min.css">
+<link rel="stylesheet" href="../assets/css/nice-select.css">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+    .product {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+    .product:hover {
+      transform: scale(1.05);
+    }
+    .product img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+    .product h3 {
+      margin: 10px 0;
+      color: #333;
+    }
+    .product p {
+      color: #555;
+    }
+    .product .price {
+      color: #007bff;
+      font-size: 1.2em;
+      margin: 10px 0;
+    }
+    .product button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .product button:hover {
+      background-color: #0056b3;
+    }
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .cart h4 {
+      margin-bottom: 10px;
+    }
+    .cart ul {
+      list-style: none;
+      padding: 0;
+    }
+    .cart ul li {
+      margin-bottom: 10px;
+    }
+    .cart ul li span {
+      display: inline-block;
+      width: 70%;
+    }
+    .cart ul li .remove {
+      color: red;
+      cursor: pointer;
+    }
+    .cart .total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .cart button {
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .cart button:hover {
+      background-color: #218838;
+    }
+    .sell-form {
+      margin-top: 50px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #fff;
+    }
+    .sell-form h3 {
+      margin-bottom: 20px;
+      color: #007bff;
+    }
+    .sell-form label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    .sell-form input[type="text"],
+    .sell-form input[type="number"],
+    .sell-form input[type="file"],
+    .sell-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    .sell-form button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .sell-form button:hover {
+      background-color: #0056b3;
+    }
+    .navbar-toggler {
+      z-index: 1001; /* Ensure the toggler button is above other elements */
+    }
+  </style>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+<div class="preloader-inner">
+<div class="loader_bars">
+<span></span>
+</div>
+</div>
+</div>
+
+<header class="header-style-01">
+  <nav class="navbar navbar-area white nav-absolute navbar-expand-lg navbar-border">
+    <div class="container container-two nav-container">
+      <div class="responsive-mobile-menu">
+        <div class="logo-wrapper">
+          <a href="../index.php" class="logo">
+            <img src="../assets/img/logo-01.png" alt="">
+          </a>
+        </div>
+        <a href="javascript:void(0)" class="click_show_icon">
+          <i class="las la-ellipsis-v"></i>
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bizcoxx_main_menu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="bizcoxx_main_menu">
+        <ul class="navbar-nav">
+          <li><a href="../index.php">Home</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li class="menu-item-has-children">
+            <a href="javascript:void(0)">Services</a>
+            <ul class="sub-menu">
+              <li><a href="../gstore/store.html">Gtech Store</a></li>
+              <li><a href="../exchangeplatform/exchange.html">Crypto Exchange Platform</a></li>
+              <li><a href="../fintech/fintech.html">Gideons Fintech Solution </a></li>
+              <li><a href="../web-dev/webdev.html">Web Design/ Development</a></li>
+              <li><a href="../videographics/videographics.html">Video Editing / Graphics Design</a></li>
+              <li><a href="../repair/repair.html">Hardware and Software Repair</a></li>
+              <li><a href="../generaltech/general.html"> General Tech Related Services</a></li>
+            </ul>
+          </li>
+          <li><a href="../faq.html">FAQ</a></li>
+          <li class="menu-item-has-children">
+            <a href="../blog.html">Blog</a>
+            <ul class="sub-menu">
+              <li><a href="../blog.html">Blog</a></li>
+              <li><a href="../blog_details.html">The Future of Tech</a></li>
+              <li><a href="../cryptoblog.html">Demystifying the Blockchain</a></li>
+              <li><a href="../iotblog.html">The Internet of Things (IoT)</a></li>
+              <li><a href="../greenblog.html">Green Tech</a></li>
+            </ul>
+          </li>
+          <li><a href="../contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+      <div class="nav-right-content">
+        <div class="info-bar-item">
+          <div class="notification-icon icon">
+            <a class="single-icon" href="javascript:void(0)"> <i class="las la-bell"></i> </a>
+            <span class="notification-number"> 5 </span>
+            <div class="notification-list-wrapper">
+              <h6 class="notification-title"> Notifications </h6>
+              <ul class="notification-list">
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> Welcome To Gideons Technology </a>
+                      <span class="list-sub"> 4 hours ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> Our blog is now available </a>
+                      <span class="list-sub"> 8 hours ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> The fintech app will soon be launched </a>
+                      <span class="list-sub"> 1 day ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> The Gtech Store is now available </a>
+                      <span class="list-sub"> 3 day ago </span>
+                    </div>
+                  </div>
+                </li>
+                <li class="list">
+                  <div class="notification-list-flex">
+                    <div class="item-icon">
+                      <i class="las la-bell"></i>
+                    </div>
+                    <div class="notification-contents">
+                      <a class="list-title" href="../notification.html"> If you have any question please visit our faq page and contact page </a>
+                      <span class="list-sub"> 7 day ago </span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+              <a href="../notification.html" class="all-notification"> See All Notification </a>
+            </div>
+          </div>
+        </div>
+        <div class="info-bar-item-two">
+          <a href="../login.php" class="login-button">Login</a>
+          <a href="../register.html" class="register-button">/ Register</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="overlays"></div>
+
+<div class="banner-area home-one-banner bg-image" style="background-image:url(../assets/img/services.jpg)">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-10">
+        <div class="banner-contents">
+          <h2 class="banner-title"> One-stop solution for your <span class="title-span"> Agency </span> </h2>
+          <span class="title-top">Gtech Store</span>
+          <div class="banner-bottom-content">
+            <form action="https://formsubmit.co/ceo@gideonstechnology.com" method="POST" class="banner-search-form">
+              <div class="banner-address-select">
+                <select id="country" name="country" required>
+                  <!-- ...existing code... -->
+                </select>
+              </div>
+              <div class="single-input">
+                <input class="form--control" type="email" placeholder="Subscribe to our newsletter" name="Email">
+                <div class="icon-search">
+                  <i class="las la-submit"></i>
+                </div>
+                <button type="submit"> <i class="fa fa-hand-peace-o"></i> </button>
+              </div>
+              <input type="hidden" name="_captcha" value="false">
+              <input type="hidden" name="_next" value="https://gideonstechnology.com">
+            </form>
+            <div class="banner-keywords">
+              <span class="keyword-title"> Services: </span>
+              <ul class="keyword-tag">
+                <li>
+                  <a href="../web-dev/webdev.html"> Web Development </a>
+                </li>
+                <li>
+                  <a href="../videographics/videographics.html"> Graphics Design</a>
+                </li>
+                <li>
+                  <a href="../videographics/videographics.html"> Video Editing </a>
+                </li>
+                <li>
+                  <a href="../repair/repair.html"> Computer Repair </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="text-center my-4">Gtech Store</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="product">
+        <img src="../assets/img/product1.jpg" alt="Product 1">
+        <h3>Product 1</h3>
+        <p>High-quality tech gadget</p>
+        <div class="price">$100.00</div>
+        <button onclick="addToCart('Product 1', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="product">
+        <img src="../assets/img/product2.jpg" alt="Product 2">
+        <h3>Product 2</h3>
+        <p>Latest tech innovation</p>
+        <div class="price">$200.00</div>
+        <button onclick="addToCart('Product 2', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="product">
+        <img src="../assets/img/product3.jpg" alt="Product 3">
+        <h3>Product 3</h3>
+        <p>Advanced tech solution</p>
+        <div class="price">$300.00</div>
+        <button onclick="addToCart('Product 3', 300)">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sell-form">
+    <h3>Sell Your Product</h3>
+    <form id="sell-form">
+      <label for="product-name">Product Name:</label>
+      <input type="text" id="product-name" name="product-name" required>
+      <label for="product-price">Price:</label>
+      <input type="number" id="product-price" name="product-price" required>
+      <label for="product-description">Description:</label>
+      <textarea id="product-description" name="product-description" rows="4" required></textarea>
+      <label for="product-image">Upload Image:</label>
+      <input type="file" id="product-image" name="product-image" accept="image/*" required>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+
+<div class="cart">
+  <h4>Shopping Cart</h4>
+  <ul id="cart-items"></ul>
+  <div class="total">Total: $<span id="cart-total">0.00</span></div>
+  <button onclick="checkout()">Checkout</button>
+</div>
+
+<footer class="footer-area">
+  <div class="footer-top padding-top-100 padding-bottom-70">
+  <div class="container">
+   <div class="row">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <div class="footer-widget widget ">
+  <div class="about_us_widget">
+  <a href="../index.php" class="footer-logo"> <img src="../assets/img/logo-01.png" alt="footer logo"></a>
+  </div>
+  <div class="footer-inner">
+  <p class="footer-para">Unleash the Future of Technology: Explore Our Latest Innovations</p>
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <div class="footer-widget widget">
+  <h6 class="widget-title">Contact Info</h6>
+  <div class="footer-inner">
+  <ul class="footer-link-address">
+  <li class="list"><span class="address"> <i class="las la-map-marker-alt"></i> Kumasi, Ashanti Region, Ghana </span></li>
+  <li class="list"> <span class="address"> <a href="tel:+233-20-285-0251"> <i class="las la-mobile-alt"></i> +233-20-285-0251</a> </span></li>
+  <li class="list"> <span class="address"> <a href="mailto:ceo@gideonstechnology.com"> <i class="las la-envelope"></i> <span class="__cf_email__">ceo@gideonstechnology</span></a> </span></li>
+  </ul>
+  <div class="footer-socials">
+  <ul class="footer-social-list">
+  <li class="lists">
+  <a class="facebook" href="https://m.facebook.com/profile.php?id=100004200583235"> <i class="lab la-facebook-f"></i> </a>
+  </li>
+  <li class="lists">
+  <a class="twitter" href="https://x.com/gideons_tech?s=21"> <i class="lab la-twitter"></i> </a>
+  </li>
+  <li class="lists">
+  <a class="instagram" href="https://instagram.com/ceo_gtech?igshid=MzR1ODBiNWFIZA=="> <i class="lab la-instagram"></i> </a>
+  </li>
+  <li class="lists">
+  <a class="whatsapp" href="https://wa.me/qr/TRTMJI6CL7AJG1"> <i class="lab la-whatsapp"></i> </a>
+  </li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <div class="footer-widget widget">
+  <h4 class="widget-title">Recent News</h4>
+  <div class="footer-inner">
+  <div class="footer-recent-single">
+  <div class="footer-recent-flex">
+  <a href="../cryptoblog.html" class="recents-thumbs">
+  <img src="../assets/img/blog/blockchain.jpg" alt="">
+  </a>
+  <div class="footer-recent-text">
+  <a href="../cryptoblog.html" class="footer-recent-para"> Demystifying the Blockchain: How It's Revolutionizing Tech and Beyond </a>
+  </div>
+  </div>
+  </div>
+  <div class="footer-recent-single">
+  <div class="footer-recent-flex">
+  <a href="../iotblog.html" class="recents-thumbs">
+  <img src="../assets/img/blog/iot.jpg" alt="">
+   </a>
+  <div class="footer-recent-text">
+  <a href="../iotblog.html" class="footer-recent-para"> The Internet of Things (IoT): Connecting Our World, One Device at a Time </a>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <div class="footer-widget widget">
+  <h4 class="widget-title">Subscribe Newsletter</h4>
+  <div class="footer-inner">
+  <p class="subscribe-para"> Get the latest creative news from Gideons Technology </p>
+  <div class="subscribe-form">
+    <form class="widget-form-single" action="https://formsubmit.co/ceo@gideonstechnology.com" method="POST">
+      <input type="hidden" name="_gotcha" style="display:none !important">
+   <input class="form--control" type="text" name="email" placeholder="Enter Email Address">
+   <button type="submit" class="btn-subscribe"> <i class="las la-paper-plane"></i> </button>
+   <input type="hidden" name="_captcha" value="false">
+   <input type="hidden" name="_next" value="https://gideonstechnology.com">
+   </form>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  <div class="copyright-area copyright-border">
+  <div class="container">
+  <div class="row align-items-center">
+  <div class="col-lg-4 col-md-6">
+  <ul class="copyright-list">
+  <li class="list">
+  <a href="../privacy.html"> Privacy Policy </a>
+  </li>
+  <li class="list">
+  <a href="../terms.html"> Terms & Conditions </a>
+  </li>
+  </ul>
+  </div>
+  <div class="col-lg-4 col-md-6">
+  <div class="copyright-contents">
+  <span> All copyright (C) 2023 Reserved </span>
+  </div>
+  </div>
+  <div class="col-lg-4 col-md-6">
+  <div class="copyright-payment">
+  <ul class="payment-list">
+  <li class="list">
+  <a href="javascript:void(0)"> <img src="../assets/img/footer/c1.png" alt=""> </a>
+  </li>
+  <li class="list">
+  <a href="javascript:void(0)"> <img src="../assets/img/footer/c2.png" alt=""> </a>
+  </li>
+  <li class="list">
+  <a href="javascript:void(0)"> <img src="../assets/img/footer/c3.png" alt=""> </a>
+  </li>
+  <li class="list">
+  <a href="javascript:void(0)"> <img src="../assets/img/footer/c4.png" alt=""> </a>
+  </li>
+  </ul>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </footer>
+
+
+<div class="back-to-top">
+<span class="back-top"><i class="las la-angle-up"></i></span>
+</div>
+
+
+<script src="../assets/js/jquery-3.6.0.min.js"></script>
+<script src="../assets/js/jquery-migrate.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
+<script src="../assets/js/wow.min.js"></script>
+<script src="../assets/js/slick.js"></script>
+<script src="../assets/js/jquery.nice-select.js"></script>
+<script src="../assets/js/jquery.nicescroll.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script>
+  let cart = [];
+
+  function addToCart(product, price) {
+    cart.push({ product, price });
+    updateCart();
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    cartItems.innerHTML = '';
+    let total = 0;
+    cart.forEach((item, index) => {
+      total += item.price;
+      cartItems.innerHTML += `<li>${item.product} - $${item.price.toFixed(2)} <span class="remove" onclick="removeFromCart(${index})">Remove</span></li>`;
+    });
+    cartTotal.textContent = total.toFixed(2);
+  }
+
+  function checkout() {
+    if (cart.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+    const email = prompt('Enter your email to receive the order details:');
+    if (email) {
+      // Send the cart details to the email
+      alert('Order placed successfully! Check your email for details.');
+      cart = [];
+      updateCart();
+    }
+  }
+</script>
+</body>
+</html>

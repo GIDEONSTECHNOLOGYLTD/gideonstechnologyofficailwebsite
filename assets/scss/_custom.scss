@@ -1,0 +1,145 @@
+// Custom styles that don't fit in other categories
+
+// Variables
+$primary: #007bff;
+$secondary: #6c757d;
+$light: #f8f9fa;
+$dark: #343a40;
+$white: #fff;
+
+// Animations
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+// Animation classes
+.fade-in {
+  animation: fadeIn .5s ease;
+}
+
+.slide-up {
+  animation: slideUp .5s ease;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: $light;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+  border-radius: 4px;
+  
+  &:hover {
+    background: darken($primary, 10%);
+  }
+}
+
+// Selection color
+::selection {
+  background-color: $primary;
+  color: $white;
+}
+
+// Custom focus outline
+:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba($primary, .25);
+}
+
+// Image hover effects
+.img-hover {
+  overflow: hidden;
+  
+  img {
+    transition: transform .3s ease;
+    
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+// Custom loader
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid $light;
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Custom tooltip
+[data-tooltip] {
+  position: relative;
+  
+  &:before {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: .5rem 1rem;
+    background-color: $dark;
+    color: $white;
+    font-size: .875rem;
+    border-radius: .25rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all .3s ease;
+  }
+  
+  &:hover:before {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+// Custom badge
+.badge-custom {
+  padding: .35em .65em;
+  font-size: .75em;
+  font-weight: 600;
+  border-radius: 50rem;
+  
+  &-outline {
+    background-color: transparent;
+    border: 1px solid currentColor;
+  }
+}
+
+// Custom divider
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, $secondary, transparent);
+  margin: 2rem 0;
+}

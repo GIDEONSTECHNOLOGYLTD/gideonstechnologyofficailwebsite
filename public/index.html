@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repair Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .endpoint {
+            background: #f1f1f1;
+            padding: 15px;
+            margin: 10px 0;
+            border-left: 4px solid #3498db;
+        }
+        .method {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .get {
+            background: #2ecc71;
+            color: white;
+        }
+        .post {
+            background: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Repair Service API</h1>
+        <p>Welcome to the Repair Service API. Use the following endpoints to interact with our service:</p>
+        
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/</code>
+            <p>Get information about the API and available endpoints.</p>
+        </div>
+        
+        <div class="endpoint">
+            <span class="method get">GET</span>
+            <code>/repair/repair</code>
+            <p>Check if the repair service is online and get the current status.</p>
+        </div>
+        
+        <div class="endpoint">
+            <span class="method post">POST</span>
+            <code>/repair/repair</code>
+            <p>Submit a repair request to the system.</p>
+            <pre>
+{
+  "device": "iPhone 13",
+  "issue": "Cracked screen",
+  "customerName": "John Doe",
+  "contact": "john@example.com"
+}
+            </pre>
+        </div>
+        
+        <div>
+            <h3>API Response Format</h3>
+            <p>All API responses are returned in JSON format with the following structure:</p>
+            <pre>
+{
+  "status": "success|error",
+  "message": "Human-readable message",
+  "data": { ... } (optional)
+}
+            </pre>
+        </div>
+    </div>
+
+    <script>
+        // Simple script to check API status
+        fetch('/repair/repair')
+            .then(response => response.json())
+            .then(data => {
+                console.log('Repair service status:', data);
+            })
+            .catch(error => {
+                console.error('Error checking repair service:', error);
+            });
+    </script>
+</body>
+</html>

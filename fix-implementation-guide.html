@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gideons Technology - Implementation Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        .highlight { background-color: #ffffcc; padding: 2px; }
+        h1, h2, h3 { color: #333; }
+        .step { margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .success { color: green; font-weight: bold; }
+        .warning { color: orange; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Gideons Technology - Website Fix Implementation Guide</h1>
+    
+    <div class="step">
+        <h2>Step 1: Update Each HTML File</h2>
+        <p>Find the <code>&lt;head&gt;</code> section in each of your HTML files and update it with the following script loading pattern:</p>
+        
+        <pre>
+&lt;!-- CSS files first -->
+&lt;link rel="stylesheet" href="assets/css/bootstrap.min.css">
+&lt;link rel="stylesheet" href="assets/css/style.css">
+&lt;!-- Add our CSS fixes -->
+&lt;link rel="stylesheet" href="assets/css/fixes.css">
+
+&lt;!-- Load jQuery first -->
+&lt;script src="assets/js/jquery-3.6.0.min.js">&lt;/script>
+
+&lt;!-- Our jQuery fix script -->
+&lt;script src="assets/js/jquery-fix.js">&lt;/script>
+
+&lt;!-- Then jQuery Migrate -->
+&lt;script src="assets/js/jquery-migrate.min.js">&lt;/script>
+
+&lt;!-- Add our Bootstrap fix script -->
+&lt;script src="assets/js/fix-bootstrap.js">&lt;/script>
+        </pre>
+        
+        <p><span class="success">Important:</span> Remove ALL script tags at the end of the body and let the fix-bootstrap.js script handle loading them for you.</p>
+    </div>
+    
+    <div class="step">
+        <h2>Step 2: Test Your Pages</h2>
+        <p>After updating each page, test it by:</p>
+        <ol>
+            <li>Opening the page in your browser</li>
+            <li>Opening Developer Tools (F12 or right-click → Inspect)</li>
+            <li>Checking the Console tab for errors</li>
+        </ol>
+        <p>Use the script-test.html page we created to verify all scripts are loading correctly.</p>
+    </div>
+    
+    <div class="step">
+        <h2>Step 3: Troubleshooting</h2>
+        <p>If you still see errors:</p>
+        <ul>
+            <li><span class="warning">email-decode.min.js error:</span> Make sure you're using the version we created</li>
+            <li><span class="warning">jQuery selector error:</span> Ensure jquery-fix.js is loaded right after jQuery</li>
+            <li><span class="warning">Bootstrap not loading:</span> The fix-bootstrap.js script should handle this, but you can also try using the CDN version directly</li>
+        </ul>
+    </div>
+    
+    <div class="step">
+        <h2>Step 4: Apply to All Pages</h2>
+        <p>Make sure to update these files:</p>
+        <ul>
+            <li>index.html</li>
+            <li>webdev.html</li>
+            <li>register.html</li>
+            <li>formfortemplate.html</li>
+            <li>Any other HTML files that use JavaScript</li>
+        </ul>
+    </div>
+    
+    <div class="step">
+        <h2>Need More Help?</h2>
+        <p>If you continue to have issues, create a PHP file to check which JavaScript files exist and are valid:</p>
+        <pre>
+&lt;?php
+$jsFiles = [
+    'assets/js/jquery-3.6.0.min.js',
+    'assets/js/jquery-migrate.min.js',
+    'assets/js/jquery-fix.js',
+    'assets/js/bootstrap.bundle.min.js',
+    'assets/js/fix-bootstrap.js',
+    'assets/js/wow.min.js',
+    'assets/js/email-decode.min.js',
+    'assets/js/scripts.js'
+];
+
+echo '&lt;h1>JavaScript File Check&lt;/h1>';
+echo '&lt;table border="1" cellpadding="5">';
+echo '&lt;tr>&lt;th>File&lt;/th>&lt;th>Status&lt;/th>&lt;th>Size&lt;/th>&lt;/tr>';
+
+foreach ($jsFiles as $file) {
+    echo '&lt;tr>';
+    echo '&lt;td>' . $file . '&lt;/td>';
+    
+    if (file_exists($file)) {
+        $content = file_get_contents($file);
+        $isValidJS = !preg_match('/^\s*(&lt;!DOCTYPE|&lt;html)/i', $content);
+        
+        echo '&lt;td>' . ($isValidJS ? '&lt;span style="color:green">Valid&lt;/span>' : '&lt;span style="color:red">Invalid HTML content&lt;/span>') . '&lt;/td>';
+        echo '&lt;td>' . filesize($file) . ' bytes&lt;/td>';
+    } else {
+        echo '&lt;td>&lt;span style="color:red">Missing&lt;/span>&lt;/td>';
+        echo '&lt;td>-&lt;/td>';
+    }
+    
+    echo '&lt;/tr>';
+}
+
+echo '&lt;/table>';
+?>
+        </pre>
+        <p>Save this as <code>check-js-files.php</code> and access it through your browser.</p>
+    </div>
+</body>
+</html>

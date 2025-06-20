@@ -1,0 +1,86 @@
+[Wed May  7 16:49:29 2025] PHP 8.4.6 Development Server (http://localhost:8081) started
+[Wed May  7 16:49:55 2025] [::1]:50208 Accepted
+[Wed May  7 16:49:56 2025] [::1]:50208 [500]: GET /
+[Wed May  7 16:49:56 2025] [::1]:50208 Closing
+[Wed May  7 16:50:02 2025] [::1]:50245 Accepted
+[Wed May  7 16:50:02 2025] [::1]:50245 [500]: GET /
+[Wed May  7 16:50:02 2025] [::1]:50245 Closing
+[Wed May  7 16:50:03 2025] [::1]:50247 Accepted
+[Wed May  7 16:50:03 2025] [::1]:50247 [500]: GET /
+[Wed May  7 16:50:03 2025] [::1]:50247 Closing
+[Wed May  7 16:50:03 2025] [::1]:50254 Accepted
+[Wed May  7 16:50:03 2025] [::1]:50254 [500]: GET /
+[Wed May  7 16:50:03 2025] [::1]:50254 Closing
+[Wed May  7 16:50:03 2025] [::1]:50256 Accepted
+[Wed May  7 16:50:03 2025] [::1]:50256 [500]: GET /
+[Wed May  7 16:50:03 2025] [::1]:50256 Closing
+[Wed May  7 16:50:06 2025] [::1]:50268 Accepted
+[Wed May  7 16:50:06 2025] [::1]:50268 [500]: GET /
+[Wed May  7 16:50:06 2025] [::1]:50268 Closing
+[Wed May  7 16:50:06 2025] [::1]:50275 Accepted
+[Wed May  7 16:50:06 2025] [::1]:50275 [500]: GET /
+[Wed May  7 16:50:06 2025] [::1]:50275 Closing
+[Wed May  7 16:50:13 2025] [::1]:50317 Accepted
+[Wed May  7 16:50:13 2025] [::1]:50317 [500]: HEAD /simple-test
+[Wed May  7 16:50:13 2025] [::1]:50317 Closing
+[Wed May  7 16:50:17 2025] [::1]:50339 Accepted
+[Wed May  7 16:50:18 2025] [::1]:50339 [500]: GET /
+[Wed May  7 16:50:18 2025] [::1]:50339 Closing
+[Wed May  7 16:50:18 2025] [::1]:50347 Accepted
+[Wed May  7 16:50:18 2025] [::1]:50347 [500]: GET /
+[Wed May  7 16:50:18 2025] [::1]:50347 Closing
+[Wed May  7 16:50:18 2025] [::1]:50349 Accepted
+[Wed May  7 16:50:18 2025] [::1]:50349 [500]: GET /
+[Wed May  7 16:50:18 2025] [::1]:50349 Closing
+[Wed May  7 16:50:18 2025] [::1]:50351 Accepted
+[Wed May  7 16:50:18 2025] [::1]:50351 [500]: GET /
+[Wed May  7 16:50:18 2025] [::1]:50351 Closing
+[Wed May  7 16:52:01 2025] [::1]:50888 Accepted
+[Wed May  7 16:52:01 2025] [::1]:50888 [200]: GET /test.php
+[Wed May  7 16:52:01 2025] [::1]:50888 Closing
+[Wed May  7 16:52:25 2025] [::1]:51029 Accepted
+[Wed May  7 16:52:25 2025] [::1]:51029 [500]: GET /
+[Wed May  7 16:52:25 2025] [::1]:51029 Closing
+[Wed May  7 16:52:26 2025] [::1]:51031 Accepted
+[Wed May  7 16:52:27 2025] [::1]:51031 [500]: GET /
+[Wed May  7 16:52:27 2025] [::1]:51031 Closing
+[Wed May  7 16:52:27 2025] [::1]:51037 Accepted
+[Wed May  7 16:52:27 2025] [::1]:51037 [500]: GET /
+[Wed May  7 16:52:27 2025] [::1]:51037 Closing
+[Wed May  7 16:52:32 2025] [::1]:51066 Accepted
+[Wed May  7 16:52:32 2025] 404 Not Found
+Type: Slim\Exception\HttpNotFoundException
+Code: 404
+Message: Not found.
+File: /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php
+Line: 76
+Trace: #0 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/Routing/RouteRunner.php(62): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Http\ServerRequest))
+#1 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/Middleware/ErrorMiddleware.php(77): Slim\Routing\RouteRunner->handle(Object(Slim\Http\ServerRequest))
+#2 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/MiddlewareDispatcher.php(129): Slim\Middleware\ErrorMiddleware->process(Object(Slim\Http\ServerRequest), Object(Slim\Routing\RouteRunner))
+#3 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Psr\Http\Server\RequestHandlerInterface@anonymous->handle(Object(Slim\Http\ServerRequest))
+#4 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/App.php(209): Slim\MiddlewareDispatcher->handle(Object(Slim\Http\ServerRequest))
+#5 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/App.php(193): Slim\App->handle(Object(Slim\Http\ServerRequest))
+#6 /Users/gideonaina/Documents/Gideons-Technology/public/simple-app.php(38): Slim\App->run()
+#7 {main}
+[Wed May  7 16:52:32 2025] [::1]:51066 [404]: GET /simple-app.php/hello
+[Wed May  7 16:52:32 2025] [::1]:51066 Closing
+[Wed May  7 16:53:12 2025] [::1]:51276 Accepted
+[Wed May  7 16:53:12 2025] [::1]:51276 [200]: GET /simple-app.php
+[Wed May  7 16:53:12 2025] [::1]:51276 Closing
+[Wed May  7 16:53:32 2025] [::1]:51387 Accepted
+[Wed May  7 16:53:32 2025] 404 Not Found
+Type: Slim\Exception\HttpNotFoundException
+Code: 404
+Message: Not found.
+File: /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/Middleware/RoutingMiddleware.php
+Line: 76
+Trace: #0 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/Routing/RouteRunner.php(62): Slim\Middleware\RoutingMiddleware->performRouting(Object(Slim\Http\ServerRequest))
+#1 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/Middleware/ErrorMiddleware.php(77): Slim\Routing\RouteRunner->handle(Object(Slim\Http\ServerRequest))
+#2 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/MiddlewareDispatcher.php(129): Slim\Middleware\ErrorMiddleware->process(Object(Slim\Http\ServerRequest), Object(Slim\Routing\RouteRunner))
+#3 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/MiddlewareDispatcher.php(73): Psr\Http\Server\RequestHandlerInterface@anonymous->handle(Object(Slim\Http\ServerRequest))
+#4 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/App.php(209): Slim\MiddlewareDispatcher->handle(Object(Slim\Http\ServerRequest))
+#5 /Users/gideonaina/Documents/Gideons-Technology/vendor/slim/slim/Slim/App.php(193): Slim\App->handle(Object(Slim\Http\ServerRequest))
+#6 /Users/gideonaina/Documents/Gideons-Technology/public/simple-app.php(55): Slim\App->run()
+#7 {main}
+[Wed May  7 16:53:32 2025] [::1]:51387 [404]: GET /simple-app.php/
+[Wed May  7 16:53:32 2025] [::1]:51387 Closing

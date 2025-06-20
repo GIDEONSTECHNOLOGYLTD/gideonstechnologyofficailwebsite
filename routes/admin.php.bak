@@ -1,0 +1,208 @@
+<?php
+
+/**
+ * Admin Routes
+ * 
+ * Routes for administrative functions
+ */
+
+use App\Controllers\AdminController;
+use App\Controllers\UserManagementController;
+use App\Controllers\SettingsController;
+use App\Middleware\AuthMiddleware;
+use App\Middleware\AdminAuthMiddleware;
+use App\Core\RouteRegistry;
+use App\Core\RouteManager;
+use Slim\App;
+use Psr\Container\ContainerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use App\Utilities\Logger;
+
+// We'll let the main routes.php file handle the global flag
+// This ensures consistent loading across the application
+
+return function (App $app, ?ContainerInterface $container = null) {
+    // Create a RouteManager instance if available, otherwise use direct routing
+    $routeManager = class_exists('App\Core\RouteManager') ? new RouteManager($app, $container) : null;
+    
+    // Log that we're processing admin routes
+    if (class_exists('App\Utilities\Logger')) {
+        Logger::info("Processing admin routes");
+    }
+    
+    // Register the main admin route if not already registered
+    if (!RouteRegistry::isRegistered('GET', '/admin')) {
+        RouteRegistry::register('GET', '/admin');
+        
+        // Define the admin dashboard route
+        $app->get('/admin', function (Request $request, Response $response) {
+            $html = <<<HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Gideon's Technology</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body { 
+            padding-top: 0; 
+            padding-bottom: 2rem;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            padding: 48px 0 0;
+            box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+            background-color: #343a40;
+        }
+        .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: .5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+        .nav-link {
+            color: rgba(255, 255, 255, .75);
+        }
+        .nav-link:hover {
+            color: #fff;
+        }
+        .nav-link.active {
+            color: #fff;
+            font-weight: bold;
+        }
+        main {
+            padding-top: 48px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="/">Gideon's Technology</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="w-100"></div>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                <a class="nav-link px-3" href="/auth/logout">Sign out</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container-fluid">
+        <div class="row">
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3 sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin">
+                                <i class="bi bi-speedometer2 me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/products">
+                                <i class="bi bi-box me-2"></i>Products
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/orders">
+                                <i class="bi bi-cart me-2"></i>Orders
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/users">
+                                <i class="bi bi-people me-2"></i>Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/settings">
+                                <i class="bi bi-gear me-2"></i>Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <h2>Overview</h2>
+                <div class="row mt-4">
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Products</h5>
+                                <p class="card-text display-6">128</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Orders</h5>
+                                <p class="card-text display-6">64</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Users</h5>
+                                <p class="card-text display-6">256</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">Revenue</h5>
+                                <p class="card-text display-6">$12.4k</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+HTML;
+
+            $response->getBody()->write($html);
+            return $response->withHeader('Content-Type', 'text/html');
+        });
+    }
+    
+    // Register admin sub-routes using group if RouteManager is available
+    if ($routeManager) {
+        $routeManager->group('/admin', function ($group) use ($routeManager, $container) {
+            // Admin dashboard routes would go here
+            // These are already handled by the main /admin route above
+        });
+    } else {
+        // If RouteManager isn't available, use the standard Slim group method
+        $app->group('/admin', function ($group) use ($container) {
+            // Define admin sub-routes here if needed
+        });
+    }
+    
+    return $app;
+};
